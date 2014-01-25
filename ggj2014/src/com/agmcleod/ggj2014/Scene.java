@@ -24,6 +24,11 @@ public class Scene {
 		if(!isTransitioning()) {
 			currentLayer = i - 1;
 			transitioning = true;
+			for(int j = 0; j < layers.length; j++) {
+				Layer l = layers[j];
+				l.stopMusic();
+			}
+			getCurrentLayer().startMusic();
 			return true;
 		}
 		else {
@@ -47,6 +52,10 @@ public class Scene {
 	
 	public Layer getLayerByIndex(int i) {
 		return layers[i];
+	}
+	
+	public void handleMousePress(int x, int y) {
+		getCurrentLayer().handleMousePress(x, y);
 	}
 	
 	public boolean isTransitioning() {

@@ -9,7 +9,6 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	private int currentScreen;
 	private GameScreen gameScreen;
 	
-	
 	public Game() {
 		gameScreen = new GameScreen(this);
 		currentScreen = 0;
@@ -60,7 +59,9 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		if(getScreen() instanceof GameScreen) {
+			gameScreen.handleMousePress(screenX, screenY);
+		}
 		return false;
 	}
 

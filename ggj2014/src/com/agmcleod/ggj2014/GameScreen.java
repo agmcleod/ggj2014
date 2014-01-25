@@ -88,6 +88,10 @@ public class GameScreen implements Screen {
 			break;
 		}
 	}
+	
+	public void handleMousePress(int x, int y) {
+		currentScene.handleMousePress(x, y);
+	}
 
 	@Override
 	public void hide() {

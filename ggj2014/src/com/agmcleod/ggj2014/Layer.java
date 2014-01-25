@@ -1,6 +1,9 @@
 package com.agmcleod.ggj2014;
 
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,15 +15,20 @@ public class Layer {
 	private int currentDialogue;
 	private Array<Dialogue> dialogues;
 	private BitmapFont font;
+	private Array<Item> items;
+	private Music music;
+	private String musicFileName;
 	private boolean showDialogue;
 	private Texture texture;
 	
-	public Layer(String filename) {
+	public Layer(String filename, String musicFileName) {
 		texture = new Texture(Gdx.files.internal("data/" + filename));
 		font = new BitmapFont(Gdx.files.internal("data/layeronefont.fnt"), Gdx.files.internal("data/layeronefont.png"), false);
 		dialogues = new Array<Dialogue>();
+		items = new Array<Item>();
 		showDialogue = false;
 		currentDialogue = 0;
+		this.musicFileName = musicFileName;
 	}
 	
 	public void addDialogue(Dialogue dialogue) {
@@ -34,6 +42,17 @@ public class Layer {
 	
 	public BitmapFont getFont() {
 		return font;
+	}
+	
+	public void handleMousePress(int x, int y) {
+		Iterator<Item> it = items.iterator();
+		while(it.hasNext()) {
+			
+		}
+	}
+	
+	public boolean isMusicPlaying() {
+		return music != null && music.isPlaying();
 	}
 	
 	public void nextDialogue() {
@@ -55,6 +74,16 @@ public class Layer {
 	
 	public boolean showDialogue() {
 		return showDialogue;
+	}
+	
+	public void startMusic() {
+		/* music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
+		music.play(); */
+	}
+	
+	public void stopMusic() {
+		/* music.stop();
+		music.dispose(); */
 	}
 
 	public void update(float delta) {
