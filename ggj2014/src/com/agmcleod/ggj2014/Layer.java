@@ -38,6 +38,10 @@ public class Layer {
 	public void dispose() {
 		texture.dispose();
 		font.dispose();
+		Iterator<Dialogue> it = dialogues.iterator();
+		while(it.hasNext()) {
+			it.next().dispose();
+		}
 	}
 	
 	public BitmapFont getFont() {
@@ -87,6 +91,8 @@ public class Layer {
 	}
 
 	public void update(float delta) {
-		
+		if(showDialogue) {
+			dialogues.get(currentDialogue).update(delta);
+		}
 	}
 }

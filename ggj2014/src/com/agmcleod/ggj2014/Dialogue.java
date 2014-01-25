@@ -3,6 +3,8 @@ package com.agmcleod.ggj2014;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,54 +18,79 @@ public class Dialogue {
 	public static int LeftTextPadding;
 	public static int BottomTextPadding;
 	
-	private DialogueCompleteEvent completeEvent;
-	private int currentPart;
-	private BitmapFont font;
-	private Array<Array<String>> parts;
-	private Vector2 pos;
-	private String text;
-	
-	
 	public static void setTextOffsets() {
 		LeftTextPadding = (Gdx.graphics.getWidth() - MAX_TEXT_WIDTH) / 2;
 		BottomTextPadding = (MAX_HEIGHT - MAX_TEXT_HEIGHT) / 2;
 	}
+	private DialogueCompleteEvent completeEvent;
+	private int currentPart;
+	private Color endColor;
+	private BitmapFont font;
+	private Array<Array<String>> parts;
+	private Vector2 pos;
+	private Color startColor;
+	private String text;
+	
+	private Texture texture;
 
 	public Dialogue(BitmapFont font, String text) {
 		this.font = font;
 		parts = new Array<Array<String>>();
 		setText(text);
 		pos = new Vector2(0, 0);
+		texture = new Texture(Gdx.files.internal("data/messagebox.png"));
+		endColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		startColor = new Color(1.0f, 1.0f, 1.0f, 0f);
 	}
 	
 	public void dispose() {
-		
+		texture.dispose();
+	}
+	
+	public void fadeIn() {
+		startColor.a = 0f;
+	}
+	
+	public DialogueCompleteEvent getCompleteEvent() {
+		return completeEvent;
+	}
+	
+	public String getText() {
+		return text;
 	}
 	
 	public boolean nextPart() {
 		currentPart++;
+		fadeIn();
 		return currentPart < parts.size;
 	}
-	
+
 	public void render(SpriteBatch batch) {
 		Array<String> part = parts.get(currentPart);
-		float y = 0;
-		float i = 1;
+		float y = BottomTextPadding;
+		
+		if(startColor.a < 1f) {
+			batch.setColor(startColor);
+			font.setColor(startColor);
+		}
+		batch.draw(texture, 0, 0);
+		
 		Iterator<String> iter = part.iterator();
+		float i = 1;
 		while(iter.hasNext()) {
 			String line = iter.next();
-			y = MAX_TEXT_HEIGHT - (i * (font.getBounds(line).height + LINE_OFFSET));
+			y = MAX_HEIGHT - BottomTextPadding - (i * (font.getBounds(line).height + LINE_OFFSET));
 			font.draw(batch, line, LeftTextPadding, y);
 			i++;
 		}
-	}
-	
-	public void update(float delta) {
 		
+		if(startColor.a < 1f) {
+			batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		}
 	}
 
-	public String getText() {
-		return text;
+	public void setCompleteEvent(DialogueCompleteEvent completeEvent) {
+		this.completeEvent = completeEvent;
 	}
 
 	public void setText(String text) {
@@ -97,12 +124,10 @@ public class Dialogue {
 		}
 		parts.add(lines);
 	}
-
-	public DialogueCompleteEvent getCompleteEvent() {
-		return completeEvent;
-	}
-
-	public void setCompleteEvent(DialogueCompleteEvent completeEvent) {
-		this.completeEvent = completeEvent;
+	
+	public void update(float delta) {
+		if(startColor.a < 1f) {
+			startColor.lerp(endColor, delta);
+		}
 	}
 }

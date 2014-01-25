@@ -34,9 +34,9 @@ public class GameScreen implements Screen {
 	public void createFirstScene() {
 		Scene firstScene = new Scene();
 		try {
-			firstScene.setLayer(0, new Layer("layerone.png"));
-			firstScene.setLayer(1, new Layer("layertwo.png"));
-			firstScene.setLayer(2, new Layer("layerthree.png"));	
+			firstScene.setLayer(0, new Layer("layerone.png", ""));
+			firstScene.setLayer(1, new Layer("layertwo.png", ""));
+			firstScene.setLayer(2, new Layer("layerthree.png", ""));	
 		}
 		catch(Exception e) {
 			System.err.println("Error: " + e.getMessage());
