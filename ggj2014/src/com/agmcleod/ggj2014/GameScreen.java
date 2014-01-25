@@ -88,7 +88,7 @@ public class GameScreen implements Screen {
 			
 			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 			
-			// shapeRenderer.setProjectionMatrix(camera.combined);
+			shapeRenderer.setProjectionMatrix(camera.combined);
 			shapeRenderer.begin(ShapeType.Filled);
 			shapeRenderer.setColor(new Color(1, 1, 1, percent));
 			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -113,6 +113,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		camera = new OrthographicCamera();
+		camera.setToOrtho(false);
 		batch = new SpriteBatch();
 		
 		scenes = new Array<Scene>();
