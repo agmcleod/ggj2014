@@ -20,10 +20,25 @@ public class Scene {
 		this.nextScene = nextScene;
 	}
 	
+	public boolean changeLayer(int i) {
+		if(!isTransitioning()) {
+			currentLayer = i - 1;
+			transitioning = true;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void dispose() {
 		for(int i = 0; i < layers.length; i++) {
 			layers[i].dispose();
 		}
+	}
+	
+	public Layer getCurrentLayer() {
+		return layers[currentLayer];
 	}
 	
 	public Layer[] getLayers() {
@@ -36,6 +51,10 @@ public class Scene {
 	
 	public boolean isTransitioning() {
 		return transitioning;
+	}
+	
+	public void nextDialogue() {
+		getCurrentLayer().nextDialogue();
 	}
 	
 	public boolean nextLayer() {
@@ -53,7 +72,7 @@ public class Scene {
 	}
 	
 	public void render(SpriteBatch batch) {
-		layers[currentLayer].render(batch);
+		getCurrentLayer().render(batch);
 	}
 	
 	public void setLayer(int i, Layer layer) throws Exception {
@@ -68,6 +87,6 @@ public class Scene {
 	}
 	
 	public void update(float delta) {
-		layers[currentLayer].update(delta);
+		getCurrentLayer().update(delta);
 	}
 }
