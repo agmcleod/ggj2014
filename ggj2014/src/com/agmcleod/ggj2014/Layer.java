@@ -51,7 +51,10 @@ public class Layer {
 	public void handleMousePress(int x, int y) {
 		Iterator<Item> it = items.iterator();
 		while(it.hasNext()) {
-			
+			Item item = it.next();
+			if(item.containsPoint(x, y)) {
+				item.onClick();
+			}
 		}
 	}
 	
