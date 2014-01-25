@@ -36,11 +36,16 @@ public class GameScreen implements Screen {
 		try {
 			firstScene.setLayer(0, new Layer("layerone.png"));
 			firstScene.setLayer(1, new Layer("layertwo.png"));
-			firstScene.setLayer(2, new Layer("layerthree.png"));			
+			firstScene.setLayer(2, new Layer("layerthree.png"));	
 		}
 		catch(Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
+		
+		Layer l = firstScene.getLayerByIndex(0);
+		Dialogue dialogue = new Dialogue(l.getFont(), "The gameplay concept here is there are several rounds or waves of enemies. Each wave is triggered manually when the player is ready. The player has a set amount of resources to build up a wall of boxes or crates. They also have resources to place certain defenders. Each box has health to it.");
+		
+		l.addDialogue(dialogue);
 		
 		scenes.add(firstScene);
 	}
@@ -56,7 +61,7 @@ public class GameScreen implements Screen {
 	}
 	
 	public void handleKeyDown(int keycode) {
-		if(Input.Keys.ENTER == keycode) {
+		if(keycode == Input.Keys.ENTER || keycode == Input.Keys.TAB) {
 			if(currentScene.nextLayer()) {
 				transitionTime = 0f;
 			}
@@ -82,6 +87,8 @@ public class GameScreen implements Screen {
 		batch.begin();
 		currentScene.render(batch);
 		batch.end();
+		
+		// drawing up here so it can be outside the batch start/end
 		if(currentScene.isTransitioning()) {
 			float percent = 1f - (transitionTime / TRANSITION_DURATION);
 			Gdx.gl.glEnable(GL10.GL_BLEND);

@@ -26,6 +26,14 @@ public class Scene {
 		}
 	}
 	
+	public Layer[] getLayers() {
+		return layers;
+	}
+	
+	public Layer getLayerByIndex(int i) {
+		return layers[i];
+	}
+	
 	public boolean isTransitioning() {
 		return transitioning;
 	}
