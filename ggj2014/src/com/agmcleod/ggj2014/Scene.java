@@ -62,6 +62,11 @@ public class Scene {
 			if(currentLayer >= layers.length) {
 				currentLayer = 0;
 			}
+			for(int j = 0; j < layers.length; j++) {
+				Layer l = layers[j];
+				l.stopMusic();
+			}
+			getCurrentLayer().startMusic();
 			transitioning = true;
 			return true;
 		}

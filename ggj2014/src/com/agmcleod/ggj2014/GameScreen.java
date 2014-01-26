@@ -154,6 +154,7 @@ public class GameScreen implements Screen {
 		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();
 		shapeRenderer = new ShapeRenderer();
+		transitionTime = 0;
 	}
 	
 	public void update(float delta) {

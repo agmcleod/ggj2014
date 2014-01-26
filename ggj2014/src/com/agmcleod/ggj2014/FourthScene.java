@@ -68,6 +68,11 @@ public class FourthScene extends Scene {
 			if(currentLayer >= getLayers().length - 1) {
 				currentLayer = 0;
 			}
+			for(int j = 0; j < getLayers().length; j++) {
+				Layer l = getLayers()[j];
+				l.stopMusic();
+			}
+			getCurrentLayer().startMusic();
 			setTransitioning(true);
 			return true;
 		}

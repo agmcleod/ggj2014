@@ -93,6 +93,9 @@ public class Layer {
 		while(it.hasNext()) {
 			it.next().dispose();
 		}
+		if(isMusicPlaying()) {
+			stopMusic();
+		}
 	}
 	
 	public void genericInitialize() {
@@ -175,13 +178,17 @@ public class Layer {
 	}
 
 	public void startMusic() {
-		/* music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
-		music.play(); */
+		if(music != null) {
+			music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
+			music.play();
+		}
 	}
 
 	public void stopMusic() {
-		/* music.stop();
-		music.dispose(); */
+		if(isMusicPlaying()) {
+			music.stop();
+			music.dispose();
+		}
 	}
 
 	public void update(float delta) {
