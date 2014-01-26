@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,6 +18,7 @@ public class StartScreen implements Screen {
 	private BitmapFont font;
 	private Game game;
 	private Layer layer;
+	private Texture texture;
 	private boolean showNextInstructions;
 	
 	public class LoadGameScreenEvent implements DialogueCompleteEvent {
@@ -43,6 +45,7 @@ public class StartScreen implements Screen {
 		font.dispose();
 		batch.dispose();
 		layer.dispose();
+		texture.dispose();
 	}
 
 	public void handleKeyDown(int keycode) {
@@ -88,7 +91,7 @@ public class StartScreen implements Screen {
 		update(delta);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		
+		batch.draw(texture, 0, 0);
 		if(layer.showDialogue()) {
 			layer.render(batch);
 			if(showNextInstructions) {
@@ -113,20 +116,20 @@ public class StartScreen implements Screen {
 			float blackLength = font.getBounds(black).width;
 			
 			int x = 350;
-			int y = 200;
-			font.setColor(Color.WHITE);
+			int y = 100;
+			font.setColor(Color.BLACK);
 			font.draw(batch, whiteOne, x, y);
 			font.setColor(COLOR_YELLOW);
 			font.draw(batch, yellow, x + whiteOneLength, y);
-			font.setColor(Color.WHITE);
+			font.setColor(Color.BLACK);
 			font.draw(batch, whiteTwo, x + whiteOneLength +  yellowLength, y);
 			font.setColor(COLOR_BLUE);
 			font.draw(batch, blue, x + whiteOneLength +  yellowLength + whiteTwoLength, y);
-			font.setColor(Color.WHITE);
+			font.setColor(Color.BLACK);
 			font.draw(batch, whiteThree, x + whiteOneLength +  yellowLength + whiteTwoLength + blueLength, y);
 			font.setColor(Color.GRAY);
 			font.draw(batch, black, x + whiteOneLength +  yellowLength + whiteTwoLength + blueLength + whiteThreeLength, y);
-			font.setColor(Color.WHITE);
+			font.setColor(Color.BLACK);
 			font.draw(batch, whiteFour, x + whiteOneLength +  yellowLength + whiteTwoLength + blueLength + whiteThreeLength + blackLength, y);
 		}
 		batch.end();
@@ -146,6 +149,7 @@ public class StartScreen implements Screen {
 	@Override
 	public void show() {
 		NextDialogueEvent nde = new NextDialogueEvent();
+		texture = new Texture(Gdx.files.internal("data/production/title.png"));
 		font = new BitmapFont(Gdx.files.internal("data/whitefont.fnt"), Gdx.files.internal("data/whitefont.png"), false);
 		batch = new SpriteBatch();
 		layer = new Layer();

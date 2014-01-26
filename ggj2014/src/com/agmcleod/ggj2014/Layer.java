@@ -28,12 +28,12 @@ public class Layer {
 	
 	public Layer(String filename) {
 		genericInitialize();
-		texture = new Texture(Gdx.files.internal("data/" + filename));
+		texture = new Texture(Gdx.files.internal("data/production/" + filename));
 	}
 	
 	public Layer(String filename, String musicFileName) {
 		genericInitialize();
-		texture = new Texture(Gdx.files.internal("data/" + filename));
+		texture = new Texture(Gdx.files.internal("data/production/" + filename));
 		this.musicFileName = musicFileName;
 	}
 	

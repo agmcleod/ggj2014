@@ -37,9 +37,9 @@ public class FirstScene extends Scene {
 
 		this.gameScreen = gameScreen;
 
-		setLayer(0, new Layer("layerone.png", "scene1/yellow.mp3"));
-		setLayer(1, new Layer("layertwo.png", "scene1/blue.mp3"));
-		setLayer(2, new Layer("layerthree.png", "scene1/gray.mp3"));
+		setLayer(0, new Layer("stage1/yellow1.png", "scene1/yellow.mp3"));
+		setLayer(1, new Layer("stage1/blue1.png", "scene1/blue.mp3"));
+		setLayer(2, new Layer("stage1/grey1.png", "scene1/gray.mp3"));
 		
 		DialogueCompleteEvent nde = new DialogueCompleteEvent() {
 			@Override

@@ -1,5 +1,7 @@
 package com.agmcleod.ggj2014;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class FourthScene extends Scene {
 	
 	private boolean canSwitchLayers;
@@ -9,8 +11,8 @@ public class FourthScene extends Scene {
 		@Override
 		public void complete() {
 			canSwitchLayers = true;
-			Layer layerTwo = getLayerByIndex(1);
-			layerTwo.setShowDialogue(false);
+			Layer layerOne = getLayerByIndex(0);
+			layerOne.setShowDialogue(false);
 		}
 	}
 	
@@ -23,33 +25,26 @@ public class FourthScene extends Scene {
 	}
 	
 	public FourthScene(GameScreen gameScreen) {
-		super(4);
+		super(1);
 		this.gameScreen = gameScreen;
 		
-		setLayer(0, new Layer("layerone.png"));
-		setLayer(1, new Layer("layertwo.png"));
-		setLayer(2, new Layer("layerthree.png"));
+		setLayer(0, new Layer("stage4/blank.png"));
 		
 		NextLayerTwoDialogueEvent nltde = new NextLayerTwoDialogueEvent();
 		
-		Layer layerTwo = getLayerByIndex(1);
-		layerTwo.setShowDialogue(true);
-		layerTwo.addDialogue("This is it?", "blue", nltde);
-		layerTwo.addDialogue("Yeah.", "yellow", nltde);
-		layerTwo.addDialogue("I don't get it. It's like we came here for nothing.", "gray", nltde);
-		layerTwo.addDialogue("Now or never I suppose.", "blue", new AllowMovementHandler());
+		Layer layerOne = getLayerByIndex(0);
+		layerOne.setShowDialogue(true);
+		layerOne.addDialogue("This is it?", "blue", nltde);
+		layerOne.addDialogue("Yeah.", "yellow", nltde);
+		layerOne.addDialogue("I don't get it. It's like we came here for nothing.", "gray", nltde);
+		layerOne.addDialogue("Now or never I suppose.", "blue", new AllowMovementHandler());
 		
 		setCurrentLayer(1);
 		canSwitchLayers = false;
 	}
 	
 	public boolean changeLayer(int i) {
-		if(canSwitchLayers) {
-			return super.changeLayer(i);
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	@Override
@@ -58,21 +53,10 @@ public class FourthScene extends Scene {
 	}
 	
 	public boolean nextLayer() {
-		if(canSwitchLayers && !isTransitioning()) {
-			currentLayer++;
-			if(currentLayer >= getLayers().length - 1) {
-				currentLayer = 0;
-			}
-			for(int j = 0; j < getLayers().length - 1; j++) {
-				Layer l = getLayers()[j];
-				l.stopMusic();
-			}
-			getCurrentLayer().startMusic();
-			setTransitioning(true);
-			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
+	}
+	
+	public void render(SpriteBatch batch) {
+		
 	}
 }

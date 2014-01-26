@@ -57,9 +57,9 @@ public class ThirdScene extends Scene {
 		canSwitchLayers = false;
 		setCurrentLayer(2);
 
-		setLayer(0, new Layer("layerone.png"));
-		setLayer(1, new Layer("layertwo.png"));
-		setLayer(2, new Layer("layerthree.png"));
+		setLayer(0, new Layer("stage3/yellow3.png"));
+		setLayer(1, new Layer("stage3/blue3.png"));
+		setLayer(2, new Layer("stage3/grey3.png"));
 
 		NextLayerTwoDialogueEvent layerTwoEvent = new NextLayerTwoDialogueEvent();
 		NextLayerThreeDialogueEvent layerThreeEvent = new NextLayerThreeDialogueEvent();
