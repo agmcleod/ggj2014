@@ -54,14 +54,16 @@ public class Dialogue {
 	}
 	
 	public void nextPart() {
-		currentPart++;
-		if(currentPart >= parts.size) {
+		if(currentPart + 1 >= parts.size) {
 			if(getCompleteEvent() != null) {
 				getCompleteEvent().complete();
 			}
 			else {
 				layer.setShowDialogue(false);
 			}
+		}
+		else {
+			currentPart++;
 		}
 	}
 
@@ -113,7 +115,7 @@ public class Dialogue {
 				line += word + " ";
 			}
 		}
-		if(lines.size == 0 && !line.equals("")) {
+		if(!line.equals("")) {
 			lines.add(line);
 		}
 		parts.add(lines);

@@ -32,10 +32,6 @@ public class GameScreen implements Screen {
 		this.game = game;
 		startLayer = 0;
 	}
-	
-	public void createFirstScene() {
-		scenes.add(new FirstScene());
-	}
 
 	@Override
 	public void dispose() {
@@ -140,7 +136,7 @@ public class GameScreen implements Screen {
 		
 		scenes = new Array<Scene>();
 		Dialogue.setTextOffsets();
-		createFirstScene();
+		scenes.add(new FirstScene());
 		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();
 		shapeRenderer = new ShapeRenderer();
