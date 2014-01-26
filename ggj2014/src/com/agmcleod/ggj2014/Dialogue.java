@@ -24,31 +24,25 @@ public class Dialogue {
 	}
 	private DialogueCompleteEvent completeEvent;
 	private int currentPart;
-	private Color endColor;
 	private BitmapFont font;
+	private Layer layer;
 	private Array<Array<String>> parts;
 	private Vector2 pos;
-	private Color startColor;
 	private String text;
 	
 	private Texture texture;
 
-	public Dialogue(BitmapFont font, String text) {
+	public Dialogue(Layer layer, BitmapFont font, String text) {
 		this.font = font;
+		this.layer = layer;
 		parts = new Array<Array<String>>();
 		setText(text);
 		pos = new Vector2(0, 0);
 		texture = new Texture(Gdx.files.internal("data/messagebox.png"));
-		endColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-		startColor = new Color(1.0f, 1.0f, 1.0f, 0f);
 	}
 	
 	public void dispose() {
 		texture.dispose();
-	}
-	
-	public void fadeIn() {
-		startColor.a = 0f;
 	}
 	
 	public DialogueCompleteEvent getCompleteEvent() {
@@ -59,22 +53,23 @@ public class Dialogue {
 		return text;
 	}
 	
-	public boolean nextPart() {
+	public void nextPart() {
 		currentPart++;
-		fadeIn();
-		return currentPart < parts.size;
+		if(currentPart >= parts.size) {
+			if(getCompleteEvent() != null) {
+				getCompleteEvent().complete();
+			}
+			else {
+				layer.setShowDialogue(false);
+			}
+		}
 	}
 
 	public void render(SpriteBatch batch) {
 		Array<String> part = parts.get(currentPart);
 		float y = BottomTextPadding;
 		
-		if(startColor.a < 1f) {
-			batch.setColor(startColor);
-			font.setColor(startColor);
-		}
 		batch.draw(texture, 0, 0);
-		
 		Iterator<String> iter = part.iterator();
 		float i = 1;
 		while(iter.hasNext()) {
@@ -82,10 +77,6 @@ public class Dialogue {
 			y = MAX_HEIGHT - BottomTextPadding - (i * (font.getBounds(line).height + LINE_OFFSET));
 			font.draw(batch, line, LeftTextPadding, y);
 			i++;
-		}
-		
-		if(startColor.a < 1f) {
-			batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 	}
 
@@ -122,12 +113,13 @@ public class Dialogue {
 				line += word + " ";
 			}
 		}
+		if(lines.size == 0 && !line.equals("")) {
+			lines.add(line);
+		}
 		parts.add(lines);
 	}
 	
 	public void update(float delta) {
-		if(startColor.a < 1f) {
-			startColor.lerp(endColor, delta);
-		}
+		
 	}
 }

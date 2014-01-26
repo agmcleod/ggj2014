@@ -9,13 +9,13 @@ public class Scene {
 	private Scene nextScene;
 	private boolean transitioning = false;
 	
-	public Scene() {
-		layers = new Layer[3];
+	public Scene(int numOflayers) {
+		layers = new Layer[numOflayers];
 		currentLayer = 0;
 	}
 	
-	public Scene(Scene nextScene) {
-		layers = new Layer[3];
+	public Scene(int numOflayers, Scene nextScene) {
+		layers = new Layer[numOflayers];
 		currentLayer = 0;
 		this.nextScene = nextScene;
 	}
@@ -62,10 +62,6 @@ public class Scene {
 		return transitioning;
 	}
 	
-	public void nextDialogue() {
-		getCurrentLayer().nextDialogue();
-	}
-	
 	public boolean nextLayer() {
 		if(!isTransitioning()) {
 			currentLayer++;
@@ -80,8 +76,16 @@ public class Scene {
 		}
 	}
 	
+	public void progressDialogue() {
+		getCurrentLayer().progressDialogue();
+	}
+	
 	public void render(SpriteBatch batch) {
 		getCurrentLayer().render(batch);
+	}
+	
+	public void setCurrentLayer(int value) {
+		currentLayer = value;
 	}
 	
 	public void setLayer(int i, Layer layer) throws Exception {

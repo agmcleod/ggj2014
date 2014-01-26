@@ -6,18 +6,18 @@ import com.badlogic.gdx.Screen;
 
 public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	
-	private int currentScreen;
 	private GameScreen gameScreen;
+	private StartScreen startScreen;
 	
 	public Game() {
 		gameScreen = new GameScreen(this);
-		currentScreen = 0;
+		startScreen = new StartScreen(this);
 	}
 	
 	@Override
 	public void create() {
 		Gdx.input.setInputProcessor(this);
-		setScreen(gameScreen);
+		setScreen(startScreen);
 	}
 
 	@Override
@@ -29,6 +29,9 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		if(getScreen() instanceof GameScreen) {
 			gameScreen.handleKeyDown(keycode);
+		}
+		else if(getScreen() instanceof StartScreen) {
+			startScreen.handleKeyDown(keycode);
 		}
 		return false;
 	}
@@ -55,6 +58,14 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void setSceneLayer(int startSceneLayer) {
+		gameScreen.setStartLayer(startSceneLayer);
+	}
+	
+	public void startGameScreen() {
+		setScreen(gameScreen);
 	}
 	
 	@Override

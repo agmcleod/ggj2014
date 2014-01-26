@@ -24,15 +24,17 @@ public class GameScreen implements Screen {
 	private Game game;
 	private Array<Scene> scenes;
 	private ShapeRenderer shapeRenderer;
+	private int startLayer;
 	
 	private float transitionTime;
 	
 	public GameScreen(Game game) {
 		this.game = game;
+		startLayer = 0;
 	}
 	
 	public void createFirstScene() {
-		Scene firstScene = new Scene();
+		Scene firstScene = new Scene(3);
 		try {
 			firstScene.setLayer(0, new Layer("layerone.png", ""));
 			firstScene.setLayer(1, new Layer("layertwo.png", ""));
@@ -43,10 +45,8 @@ public class GameScreen implements Screen {
 		}
 		
 		Layer l = firstScene.getLayerByIndex(0);
-		Dialogue dialogue = new Dialogue(l.getFont(), "The gameplay concept here is there are several rounds or waves of enemies. Each wave is triggered manually when the player is ready. The player has a set amount of resources to build up a wall of boxes or crates. They also have resources to place certain defenders. Each box has health to it. General idea here is to have a pool of selections/lists. These lists can be a starcraft 2 map pool for example. An entity can be created listing a copy or reference to these lists, and mark them off. A list for each entity for the lists can be viewed.");
+		l.addDialogue("The gameplay concept here is there are several rounds or waves of enemies. Each wave is triggered manually when the player is ready. The player has a set amount of resources to build up a wall of boxes or crates. They also have resources to place certain defenders. Each box has health to it. General idea here is to have a pool of selections/lists. These lists can be a starcraft 2 map pool for example. An entity can be created listing a copy or reference to these lists, and mark them off. A list for each entity for the lists can be viewed.");
 		l.setShowDialogue(true);
-		
-		l.addDialogue(dialogue);
 		
 		scenes.add(firstScene);
 	}
@@ -84,7 +84,7 @@ public class GameScreen implements Screen {
 			}
 			break;
 		case Input.Keys.ENTER:
-			currentScene.nextDialogue();
+			currentScene.progressDialogue();
 			break;
 		}
 	}
@@ -141,6 +141,10 @@ public class GameScreen implements Screen {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void setStartLayer(int layer) {
+		startLayer = layer - 1;
+	}
 
 	@Override
 	public void show() {
@@ -151,6 +155,7 @@ public class GameScreen implements Screen {
 		scenes = new Array<Scene>();
 		Dialogue.setTextOffsets();
 		createFirstScene();
+		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();
 		shapeRenderer = new ShapeRenderer();
 	}
