@@ -28,6 +28,7 @@ public class Dialogue {
 	private Layer layer;
 	private Array<Array<String>> parts;
 	private Vector2 pos;
+	private boolean showBackdrop;
 	private String text;
 	
 	private Texture texture;
@@ -39,6 +40,7 @@ public class Dialogue {
 		setText(text);
 		pos = new Vector2(0, 0);
 		texture = new Texture(Gdx.files.internal("data/messagebox.png"));
+		showBackdrop = true;
 	}
 	
 	public void dispose() {
@@ -71,7 +73,9 @@ public class Dialogue {
 		Array<String> part = parts.get(currentPart);
 		float y = BottomTextPadding;
 		
-		batch.draw(texture, 0, 0);
+		if(showBackdrop) {
+			batch.draw(texture, 0, 0);
+		}
 		Iterator<String> iter = part.iterator();
 		float i = 1;
 		while(iter.hasNext()) {
@@ -84,6 +88,10 @@ public class Dialogue {
 
 	public void setCompleteEvent(DialogueCompleteEvent completeEvent) {
 		this.completeEvent = completeEvent;
+	}
+	
+	public void setShowBackdrop(boolean showBackdrop) {
+		this.showBackdrop = showBackdrop;
 	}
 
 	public void setText(String text) {

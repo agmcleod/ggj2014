@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
 		
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
-		currentScene = scenes.get(2);
+		currentScene = scenes.get(3);
 		currentScene.getCurrentLayer().startMusic();
 		transitionTime = 0;
 	}

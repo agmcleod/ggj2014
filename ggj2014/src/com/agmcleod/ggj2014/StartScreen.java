@@ -3,6 +3,7 @@ package com.agmcleod.ggj2014;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +19,7 @@ public class StartScreen implements Screen {
 	private BitmapFont font;
 	private Game game;
 	private Layer layer;
+	private Music music;
 	private Texture texture;
 	private boolean showNextInstructions;
 	
@@ -46,6 +48,7 @@ public class StartScreen implements Screen {
 		batch.dispose();
 		layer.dispose();
 		texture.dispose();
+		music.dispose();
 	}
 
 	public void handleKeyDown(int keycode) {
@@ -157,6 +160,8 @@ public class StartScreen implements Screen {
 		layer.addDialogue("Why do we need to go back? There's nothing for us there anymore.", "gray", nde);
 		layer.addDialogue("There just is. I know it. There's something we forgot along the way.", "yellow", nde);
 		layer.addDialogue("Are you sure? We've come so far. Just to go right back...", "blue", new LoadGameScreenEvent());
+		music = Gdx.audio.newMusic(Gdx.files.internal("data/Title.mp3"));
+		music.play();
 	}
 	
 	public void update(float delta) {
