@@ -36,14 +36,9 @@ public class FirstScene extends Scene {
 
 		this.gameScreen = gameScreen;
 
-		try {
-			setLayer(0, new Layer("layerone.png", "scene1/yellow.mp3"));
-			setLayer(1, new Layer("layertwo.png", "scene1/blue.mp3"));
-			setLayer(2, new Layer("layerthree.png", "scene1/gray.mp3"));	
-		}
-		catch(Exception e) {
-			System.err.println("Error: " + e.getMessage());
-		}
+		setLayer(0, new Layer("layerone.png", "scene1/yellow.mp3"));
+		setLayer(1, new Layer("layertwo.png", "scene1/blue.mp3"));
+		setLayer(2, new Layer("layerthree.png", "scene1/gray.mp3"));
 		
 		Layer layerThree = getLayerByIndex(2);
 		LayerThreeItemHandler handler = new LayerThreeItemHandler();

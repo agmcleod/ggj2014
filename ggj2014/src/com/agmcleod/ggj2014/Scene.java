@@ -90,10 +90,7 @@ public class Scene {
 		currentLayer = value;
 	}
 	
-	public void setLayer(int i, Layer layer) throws Exception {
-		if(layers[i] != null) {
-			throw new Exception("Layer " + i + " is already set");
-		}
+	public void setLayer(int i, Layer layer) {
 		layers[i] = layer;
 	}
 	

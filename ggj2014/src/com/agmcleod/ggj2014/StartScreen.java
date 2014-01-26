@@ -10,16 +10,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class StartScreen implements Screen {
 	
+	public class LoadGameScreenEvent implements DialogueCompleteEvent {
+		public void complete() {
+			game.startGameScreen();
+			dispose();
+		}
+	}
+	
 	public class NextDialogueEvent implements DialogueCompleteEvent {
 		@Override
 		public void complete() {
 			layer.nextDialogue();
-		}
-	}
-	
-	public class LoadGameScreenEvent implements DialogueCompleteEvent {
-		public void complete() {
-			game.startGameScreen();
 		}
 	}
 	
@@ -35,6 +36,13 @@ public class StartScreen implements Screen {
 		this.game = game;
 	}
 	
+	@Override
+	public void dispose() {
+		font.dispose();
+		batch.dispose();
+		layer.dispose();
+	}
+
 	public void handleKeyDown(int keycode) {
 		switch(keycode) {
 		case Input.Keys.NUM_1:
@@ -58,6 +66,18 @@ public class StartScreen implements Screen {
 			Gdx.app.exit();
 			break;
 		}
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -111,6 +131,12 @@ public class StartScreen implements Screen {
 	}
 
 	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void show() {
 		NextDialogueEvent nde = new NextDialogueEvent();
 		font = new BitmapFont(Gdx.files.internal("data/whitefont.fnt"), Gdx.files.internal("data/whitefont.png"), false);
@@ -119,30 +145,6 @@ public class StartScreen implements Screen {
 		layer.addDialogue("Why do we need to go back? There's nothing for us there anymore.", "gray", nde);
 		layer.addDialogue("There just is. I know it. There's something we forgot along the way.", "yellow", nde);
 		layer.addDialogue("Are you sure? We've come so far. Just to go right back...", "blue", new LoadGameScreenEvent());
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dispose() {
-		font.dispose();
-		batch.dispose();
 	}
 	
 	public void update(float delta) {

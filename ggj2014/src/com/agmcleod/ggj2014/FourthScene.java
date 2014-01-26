@@ -26,14 +26,9 @@ public class FourthScene extends Scene {
 		super(4);
 		this.gameScreen = gameScreen;
 		
-		try {
-			setLayer(0, new Layer("layerone.png"));
-			setLayer(1, new Layer("layertwo.png"));
-			setLayer(2, new Layer("layerthree.png"));
-		}
-		catch(Exception e) {
-			System.err.println("Error: " + e.getMessage());
-		}
+		setLayer(0, new Layer("layerone.png"));
+		setLayer(1, new Layer("layertwo.png"));
+		setLayer(2, new Layer("layerthree.png"));
 		
 		NextLayerTwoDialogueEvent nltde = new NextLayerTwoDialogueEvent();
 		

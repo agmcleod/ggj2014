@@ -84,11 +84,11 @@ public class Layer {
 	}
 	
 	public void dispose() {
-		texture.dispose();
-		font.dispose();
-		blueFont.dispose();
-		yellowFont.dispose();
-		grayFont.dispose();
+		if(texture != null) texture.dispose();
+		if(font != null) font.dispose();
+		if(blueFont != null) blueFont.dispose();
+		if(yellowFont != null) yellowFont.dispose();
+		if(grayFont != null) grayFont.dispose();
 		Iterator<Dialogue> it = dialogues.iterator();
 		while(it.hasNext()) {
 			it.next().dispose();

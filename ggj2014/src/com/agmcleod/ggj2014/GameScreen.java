@@ -33,6 +33,12 @@ public class GameScreen implements Screen {
 	public GameScreen(Game game) {
 		this.game = game;
 		startLayer = 0;
+		scenes = new Array<Scene>();
+		scenes.add(new FirstScene(this));
+		scenes.add(new SecondScene(this));
+		scenes.add(new ThirdScene(this));
+		scenes.add(new FourthScene(this));
+		shapeRenderer = new ShapeRenderer();
 	}
 
 	@Override
@@ -151,16 +157,10 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false);
 		batch = new SpriteBatch();
 		
-		scenes = new Array<Scene>();
-		scenes.add(new FirstScene(this));
-		scenes.add(new SecondScene(this));
-		scenes.add(new ThirdScene(this));
-		scenes.add(new FourthScene(this));
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
 		scenes.first().getCurrentLayer().startMusic();
 		currentScene = scenes.first();
-		shapeRenderer = new ShapeRenderer();
 		transitionTime = 0;
 	}
 	
