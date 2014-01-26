@@ -33,7 +33,9 @@ public class Scene {
 	
 	public void dispose() {
 		for(int i = 0; i < layers.length; i++) {
-			layers[i].dispose();
+			if(layers[i] != null) {
+				layers[i].dispose();
+			}
 		}
 	}
 	

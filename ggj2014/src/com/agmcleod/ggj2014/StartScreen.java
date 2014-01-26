@@ -54,6 +54,9 @@ public class StartScreen implements Screen {
 				layer.progressDialogue();
 			}
 			break;
+		case Input.Keys.ESCAPE:
+			Gdx.app.exit();
+			break;
 		}
 	}
 

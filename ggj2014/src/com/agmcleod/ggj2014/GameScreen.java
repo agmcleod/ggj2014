@@ -37,12 +37,16 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		Iterator<Scene> it = scenes.iterator();
-		while(it.hasNext()) {
-			Scene s = it.next();
-			s.dispose();
+		if(scenes != null) {
+			Iterator<Scene> it = scenes.iterator();
+			while(it.hasNext()) {
+				Scene s = it.next();
+				s.dispose();
+			}
 		}
-		batch.dispose();
+		if(batch != null) {
+			batch.dispose();
+		}
 	}
 	
 	public void handleKeyDown(int keycode) {
@@ -69,6 +73,9 @@ public class GameScreen implements Screen {
 			break;
 		case Input.Keys.ENTER:
 			currentScene.progressDialogue();
+			break;
+		case Input.Keys.ESCAPE:
+			Gdx.app.exit();
 			break;
 		}
 	}

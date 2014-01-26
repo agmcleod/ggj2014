@@ -1,8 +1,16 @@
 package com.agmcleod.ggj2014;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class FirstScene extends Scene {
 	
 	private GameScreen gameScreen;
+	private boolean showInstructions;
+	
+	private static final Color COLOR_BLUE = new Color(47f / 255f, 72f / 255f, 173f / 255f, 1f);
+	private static final Color COLOR_YELLOW = new Color(255f, 128f / 255f, 0f, 1f);
 	
 	private class LayerThreeItemHandler implements ItemClickEvent {
 
@@ -13,14 +21,6 @@ public class FirstScene extends Scene {
 			
 			Layer layerOne = getLayerByIndex(0);
 			layerOne.setShowDialogue(true);
-		}
-	}
-	
-	private class NextDialogueEvent implements DialogueCompleteEvent {
-		@Override
-		public void complete() {
-			Layer layer = getLayerByIndex(0);
-			layer.nextDialogue();
 		}
 	}
 	
@@ -49,7 +49,13 @@ public class FirstScene extends Scene {
 		LayerThreeItemHandler handler = new LayerThreeItemHandler();
 		layerThree.addItem("demo.png", 300, 300, handler);
 		
-		NextDialogueEvent nde = new NextDialogueEvent();
+		DialogueCompleteEvent nde = new DialogueCompleteEvent() {
+			@Override
+			public void complete() {
+				Layer layer = getLayerByIndex(0);
+				layer.nextDialogue();
+			}
+		};
 		
 		Layer layerOne = getLayerByIndex(0);
 		layerOne.addDialogue("Did you find something over there?", "yellow", nde);
@@ -65,5 +71,25 @@ public class FirstScene extends Scene {
 		layerOne.addDialogue("So can we go now? You've found what you're looking for right?", "gray", nde);
 		layerOne.addDialogue("This isn't what I'm looking for. I'm happy to have found it, but there's something else. We need to keep going", "yellow", nde);
 		layerOne.addDialogue("I don't like this.", "gray", new NextSceneEvent());
+		
+		showInstructions = true;
+	}
+	
+	public void progressDialogue() {
+		if(showInstructions) {
+			showInstructions = false;
+		}
+		else {
+			super.progressDialogue();
+		}
+	}
+	
+	public void render(SpriteBatch batch) {
+		super.render(batch);
+		if(showInstructions) {
+			BitmapFont font = getLayers()[0].getFont();
+			font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 300);
+			font.draw(batch, "Try to find an item for one of the characters.", 180, 200);
+		}
 	}
 }
