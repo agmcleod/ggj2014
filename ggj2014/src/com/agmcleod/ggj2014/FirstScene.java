@@ -70,6 +70,22 @@ public class FirstScene extends Scene {
 		showInstructions = true;
 	}
 	
+	public boolean changeLayer(int i) {
+		if(showInstructions) {
+			showInstructions = false;
+		}
+		
+		return super.changeLayer(i);
+	}
+	
+	public boolean nextLayer() {
+		if(showInstructions) {
+			showInstructions = false;
+		}
+		
+		return super.nextLayer();
+	}
+	
 	public void progressDialogue() {
 		if(showInstructions) {
 			showInstructions = false;
@@ -83,8 +99,8 @@ public class FirstScene extends Scene {
 		super.render(batch);
 		if(showInstructions) {
 			BitmapFont font = getLayers()[0].getFont();
-			font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 300);
-			font.draw(batch, "Try to find an item for one of the characters.", 180, 200);
+			font.draw(batch, "Try to find an item for one of the characters.", 180, 300);
+			font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
 		}
 	}
 }

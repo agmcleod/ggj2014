@@ -63,7 +63,7 @@ public class FourthScene extends Scene {
 			if(currentLayer >= getLayers().length - 1) {
 				currentLayer = 0;
 			}
-			for(int j = 0; j < getLayers().length; j++) {
+			for(int j = 0; j < getLayers().length - 1; j++) {
 				Layer l = getLayers()[j];
 				l.stopMusic();
 			}

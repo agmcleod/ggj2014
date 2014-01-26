@@ -87,8 +87,8 @@ public class SecondScene extends Scene {
 		layerThree.addDialogue("You just read it didn't you?", "gray", nltde);
 		layerThree.addDialogue("I'm sorry, I couldn't help it.", "yellow", nltde);
 		layerThree.addDialogue("If I knew you felt that way, I wouldnt have handed it over.", "blue", nltde);
-		layerThree.addDialogue("**snatches paper**", "black", nltde);
-		layerThree.addDialogue("You didn't see anything.", "black", nltde);
+		layerThree.addDialogue("**snatches paper**", "gray", nltde);
+		layerThree.addDialogue("You didn't see anything.", "gray", nltde);
 		layerThree.addDialogue("If you say so. We still have to keep going. Come on.", "yellow", new NextSceneEvent());
 	}
 	

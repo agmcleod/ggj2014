@@ -178,8 +178,10 @@ public class Layer {
 	}
 
 	public void startMusic() {
-		music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
-		music.play();
+		if(musicFileName != null && !musicFileName.equals("")) {
+			music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
+			music.play();
+		}
 	}
 
 	public void stopMusic() {
