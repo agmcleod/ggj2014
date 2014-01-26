@@ -18,13 +18,14 @@ public class Item {
 	
 	private boolean useHoverImage;
 	
-	public Item(String textureName, Layer layer, int x, int y) {
+	public Item(String textureName, Layer layer, int x, int y, int width, int height) {
 		texture = new Texture(Gdx.files.internal("data/" + textureName));
 		this.layer = layer;
 		pos = new Vector2(x, y);
 		rect = new Rectangle(pos.x, pos.y, texture.getWidth(), texture.getHeight());
 		useHoverImage = false;
-		idleRegion = new TextureRegion(texture, 0, 0, 128, 128);
+		idleRegion = new TextureRegion(texture, 0, 0, width, height);
+		hoverRegion = new TextureRegion(texture, width, 0, width, height);
 	}
 	
 	public boolean containsPoint(int x, int y) {
@@ -54,6 +55,11 @@ public class Item {
 	}
 	
 	public void render(SpriteBatch batch) {
-		batch.draw(texture, pos.x, pos.y);
+		if(useHoverImage) {
+			batch.draw(hoverRegion, pos.x, pos.y);
+		}
+		else {
+			batch.draw(idleRegion, pos.x, pos.y);
+		}
 	}
 }

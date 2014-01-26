@@ -55,8 +55,8 @@ public class Layer {
 		dialogues.add(dialogue);
 	}
 	
-	public void addItem(String textureName, int x, int y, ItemClickEvent itemClickEvent) {
-		Item item = new Item(textureName, this, x, y);
+	public void addItem(String textureName, int x, int y, int width, int height, ItemClickEvent itemClickEvent) {
+		Item item = new Item(textureName, this, x, y, width, height);
 		item.setItemClickEvent(itemClickEvent);
 		items.add(item);
 	}
@@ -122,6 +122,9 @@ public class Layer {
 			Item item = it.next();
 			if(item.containsPoint(x, y)) {
 				item.onHover();
+			}
+			else {
+				item.onHoverOut();
 			}
 		}
 	}

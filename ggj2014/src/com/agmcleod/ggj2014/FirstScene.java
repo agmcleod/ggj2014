@@ -66,7 +66,7 @@ public class FirstScene extends Scene {
 		
 		Layer layerThree = getLayerByIndex(2);
 		LayerThreeItemHandler handler = new LayerThreeItemHandler();
-		layerThree.addItem("demo.png", 300, 300, handler);
+		layerThree.addItem("demo.png", 300, 300, 128, 128, handler);
 		
 		layerThree.addDialogue("There's something on the ground here... maybe this is... It's a ring. Looks like something out of Wonderland. ...A bit tacky if you ask me.", "grayitalic");
 		

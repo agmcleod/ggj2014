@@ -71,7 +71,7 @@ public class SecondScene extends Scene {
 		layerOne.addDialogue("You'll understand when we get there.", "yellow", new AllowMovementHandler());
 		
 		Layer layerTwo = getLayerByIndex(1);
-		layerTwo.addItem("demo.png", 800, 600, new LayerTwoItemHandler());
+		layerTwo.addItem("demo.png", 800, 600, 128, 128, new LayerTwoItemHandler());
 		layerTwo.addDialogue("This seems a little out of place...", "blueitalic");
 		
 		NextLayerThreeDialogueEvent nltde = new NextLayerThreeDialogueEvent();
