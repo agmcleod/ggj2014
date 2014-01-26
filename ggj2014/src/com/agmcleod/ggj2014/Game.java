@@ -13,6 +13,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public static BitmapFont font;
 	public static BitmapFont grayFont;
 	public static BitmapFont grayFontItalic;
+	public static BitmapFont whiteFont;
 	public static BitmapFont yellowFont;
 	public static BitmapFont yellowFontItalic;
 	
@@ -31,6 +32,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 		yellowFontItalic.dispose();
 		blueFontItalic.dispose();
 		grayFontItalic.dispose();
+		whiteFont.dispose();
 	}
 	
 	public static void setupFonts() {
@@ -41,6 +43,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 		yellowFontItalic = new BitmapFont(Gdx.files.internal("data/yellowitalicfont.fnt"), Gdx.files.internal("data/yellowitalicfont.png"), false);
 		blueFontItalic = new BitmapFont(Gdx.files.internal("data/blueitalicfont.fnt"), Gdx.files.internal("data/blueitalicfont.png"), false);
 		grayFontItalic = new BitmapFont(Gdx.files.internal("data/grayitalicfont.fnt"), Gdx.files.internal("data/grayitalicfont.png"), false);
+		whiteFont = new BitmapFont(Gdx.files.internal("data/whitefont.fnt"), Gdx.files.internal("data/whitefont.png"), false);
 	}
 	
 	@Override

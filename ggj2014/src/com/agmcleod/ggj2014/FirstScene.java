@@ -59,14 +59,14 @@ public class FirstScene extends Scene {
 		layerOne.addDialogue("Who would wear something like that?", "gray", nde);
 		layerOne.addDialogue("It's mine. I lost it years ago.", "yellow", nde);
 		layerOne.addDialogue("Where would you even get something like that?", "gray", nde);
-		layerOne.addDialogue("It's been passed down through the family", "yellow", nde);
+		layerOne.addDialogue("It's been passed down through the family.", "yellow", nde);
 		layerOne.addDialogue("So can we go now? You've found what you're looking for right?", "gray", nde);
-		layerOne.addDialogue("This isn't what I'm looking for. I'm happy to have found it, but there's something else. We need to keep going", "yellow", nde);
+		layerOne.addDialogue("This isn't what I'm looking for. I'm happy to have found it, but there's something else. We need to keep going.", "yellow", nde);
 		layerOne.addDialogue("I don't like this.", "gray", new NextSceneEvent());
 		
 		Layer layerThree = getLayerByIndex(2);
 		LayerThreeItemHandler handler = new LayerThreeItemHandler();
-		layerThree.addItem("demo.png", 300, 300, 128, 128, handler);
+		layerThree.addItem("production/items/ring.png", 300, 250, 46, 42, handler);
 		
 		layerThree.addDialogue("There's something on the ground here... maybe this is... It's a ring. Looks like something out of Wonderland. ...A bit tacky if you ask me.", "grayitalic");
 		
@@ -80,7 +80,7 @@ public class FirstScene extends Scene {
 	
 	public void handleMousePress(int x, int y) {
 		stopShowingInstructions();
-		super.handleMouseHover(x, y);
+		super.handleMousePress(x, y);
 	}
 	
 	public boolean nextLayer() {
@@ -100,8 +100,8 @@ public class FirstScene extends Scene {
 	public void render(SpriteBatch batch) {
 		super.render(batch);
 		if(showInstructions) {
-			Game.font.draw(batch, "Try to find an item for one of the characters.", 180, 300);
-			Game.font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
+			Game.whiteFont.draw(batch, "Try to find an item for one of the characters.", 180, 300);
+			Game.whiteFont.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
 		}
 	}
 	

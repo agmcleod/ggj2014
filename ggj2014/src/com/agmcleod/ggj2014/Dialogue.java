@@ -120,8 +120,4 @@ public class Dialogue {
 		}
 		parts.add(lines);
 	}
-	
-	public void update(float delta) {
-		
-	}
 }

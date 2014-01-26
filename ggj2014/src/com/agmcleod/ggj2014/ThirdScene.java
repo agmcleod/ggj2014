@@ -65,7 +65,7 @@ public class ThirdScene extends Scene {
 		NextLayerThreeDialogueEvent layerThreeEvent = new NextLayerThreeDialogueEvent();
 
 		Layer layerOne = getLayerByIndex(0);
-		layerOne.addItem("demo.png", 800, 20, 128, 128, new LayerOneItemHandler());
+		layerOne.addItem("production/items/bear.png", 100, 600, 166, 240, new LayerOneItemHandler());
 		layerOne.addDialogue("Wow, I haven't seen this in a long time. I wonder...", "yellowitalic");
 
 		Layer layerTwo = getLayerByIndex(1);
@@ -73,11 +73,11 @@ public class ThirdScene extends Scene {
 		layerTwo.addDialogue("Yeah?", "blue", layerTwoEvent);
 		layerTwo.addDialogue("This is yours isn't it?!", "yellow", layerTwoEvent);
 		layerTwo.addDialogue("It's... oh my. Yeah, it is. I haven't seen it in years.", "blue", layerTwoEvent);
-		layerTwo.addDialogue("Looks a little run-down", "gray", layerTwoEvent);
+		layerTwo.addDialogue("Looks a little run-down.", "gray", layerTwoEvent);
 		layerTwo.addDialogue("No, it's not!", "blue", layerTwoEvent);
 		layerTwo.addDialogue("The eye is falling out and half of the stuffing is gone.", "gray", layerTwoEvent);
 		layerTwo.addDialogue("It adds character!", "blue", layerTwoEvent);
-		layerTwo.addDialogue("It's filthy. You shoudl throw it away.", "gray", layerTwoEvent);
+		layerTwo.addDialogue("It's filthy. You should throw it away.", "gray", layerTwoEvent);
 		layerTwo.addDialogue("Just let me have this. We gave you back that silly little piece of paper.", "gray", layerTwoEvent);
 		layerTwo.addDialogue("...Fine", "gray", layerTwoEvent);
 		layerTwo.addDialogue("...we're here.", "yellow", new NextSceneEvent());

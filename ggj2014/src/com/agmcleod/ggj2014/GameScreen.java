@@ -175,7 +175,6 @@ public class GameScreen implements Screen {
 	
 	public void update(float delta) {
 		camera.update();
-		currentScene.update(delta);
 		if(currentScene.isTransitioning()) {
 			transitionTime += delta;
 			if(transitionTime > TRANSITION_DURATION) {

@@ -4,8 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FourthScene extends Scene {
 	
+	private boolean bearItemPlaced;
 	private boolean canSwitchLayers;
 	private GameScreen gameScreen;
+	private boolean paperItemPlaced;
+	private boolean ringItemPlaced;
 	
 	private class AllowMovementHandler implements DialogueCompleteEvent {
 		@Override
@@ -16,10 +19,10 @@ public class FourthScene extends Scene {
 		}
 	}
 	
-	private class NextLayerTwoDialogueEvent implements DialogueCompleteEvent {
+	private class NextLayerOneDialogueEvent implements DialogueCompleteEvent {
 		@Override
 		public void complete() {
-			Layer layer = getLayerByIndex(1);
+			Layer layer = getLayerByIndex(0);
 			layer.nextDialogue();
 		}
 	}
@@ -30,7 +33,7 @@ public class FourthScene extends Scene {
 		
 		setLayer(0, new Layer("stage4/blank.png"));
 		
-		NextLayerTwoDialogueEvent nltde = new NextLayerTwoDialogueEvent();
+		NextLayerOneDialogueEvent nltde = new NextLayerOneDialogueEvent();
 		
 		Layer layerOne = getLayerByIndex(0);
 		layerOne.setShowDialogue(true);
@@ -38,8 +41,6 @@ public class FourthScene extends Scene {
 		layerOne.addDialogue("Yeah.", "yellow", nltde);
 		layerOne.addDialogue("I don't get it. It's like we came here for nothing.", "gray", nltde);
 		layerOne.addDialogue("Now or never I suppose.", "blue", new AllowMovementHandler());
-		
-		setCurrentLayer(1);
 		canSwitchLayers = false;
 	}
 	
@@ -57,6 +58,6 @@ public class FourthScene extends Scene {
 	}
 	
 	public void render(SpriteBatch batch) {
-		
+		getLayers()[0].render(batch);
 	}
 }

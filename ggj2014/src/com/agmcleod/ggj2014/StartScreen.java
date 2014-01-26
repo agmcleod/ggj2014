@@ -159,9 +159,7 @@ public class StartScreen implements Screen {
 	}
 	
 	public void update(float delta) {
-		if(layer.showDialogue()) {
-			layer.update(delta);
-		}
+		
 	}
 
 }

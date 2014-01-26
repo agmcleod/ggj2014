@@ -194,10 +194,4 @@ public class Layer {
 			music.dispose();
 		}
 	}
-
-	public void update(float delta) {
-		if(showDialogue) {
-			dialogues.get(currentDialogue).update(delta);
-		}
-	}
 }

@@ -101,8 +101,4 @@ public class Scene {
 	public void setTransitioning(boolean value) {
 		transitioning = value;
 	}
-	
-	public void update(float delta) {
-		getCurrentLayer().update(delta);
-	}
 }
