@@ -57,9 +57,9 @@ public class SecondScene extends Scene {
 		this.gameScreen = gameScreen;
 		canSwitchLayers = false;
 		
-		setLayer(0, new Layer("stage2/yellow2.png"));
-		setLayer(1, new Layer("stage2/blue2.png"));
-		setLayer(2, new Layer("stage2/grey2.png"));
+		setLayer(0, new Layer("stage2/yellow2.png", "scene2/Yellow2.mp3"));
+		setLayer(1, new Layer("stage2/blue2.png", "scene2/Blue2.mp3"));
+		setLayer(2, new Layer("stage2/grey2.png", "scene2/Grey2.mp3"));
 		
 		NextLayerOneDialogueEvent nde = new NextLayerOneDialogueEvent();
 		

@@ -77,6 +77,7 @@ public class GameScreen implements Screen {
 				transitionTime = 0f;
 			}
 			break;
+		case Input.Keys.SPACE:
 		case Input.Keys.ENTER:
 			currentScene.progressDialogue();
 			break;
@@ -162,8 +163,8 @@ public class GameScreen implements Screen {
 		
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
-		scenes.first().getCurrentLayer().startMusic();
-		currentScene = scenes.first();
+		currentScene = scenes.get(2);
+		currentScene.getCurrentLayer().startMusic();
 		transitionTime = 0;
 	}
 	

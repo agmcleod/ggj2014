@@ -57,15 +57,15 @@ public class ThirdScene extends Scene {
 		canSwitchLayers = false;
 		setCurrentLayer(2);
 
-		setLayer(0, new Layer("stage3/yellow3.png"));
-		setLayer(1, new Layer("stage3/blue3.png"));
-		setLayer(2, new Layer("stage3/grey3.png"));
+		setLayer(0, new Layer("stage3/yellow3.png", "scene3/Yellow3.mp3"));
+		setLayer(1, new Layer("stage3/blue3.png", "scene3/Blue3.mp3"));
+		setLayer(2, new Layer("stage3/grey3.png", "scene3/Grey3.mp3"));
 
 		NextLayerTwoDialogueEvent layerTwoEvent = new NextLayerTwoDialogueEvent();
 		NextLayerThreeDialogueEvent layerThreeEvent = new NextLayerThreeDialogueEvent();
 
 		Layer layerOne = getLayerByIndex(0);
-		layerOne.addItem("production/items/bear.png", 100, 600, 166, 240, new LayerOneItemHandler());
+		layerOne.addItem("production/items/bear.png", 100, 430, 166, 240, new LayerOneItemHandler());
 		layerOne.addDialogue("Wow, I haven't seen this in a long time. I wonder...", "yellowitalic");
 
 		Layer layerTwo = getLayerByIndex(1);

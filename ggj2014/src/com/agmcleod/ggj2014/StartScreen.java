@@ -62,6 +62,7 @@ public class StartScreen implements Screen {
 			game.setSceneLayer(3);
 			layer.setShowDialogue(true);
 			break;
+		case Input.Keys.SPACE:
 		case Input.Keys.ENTER:
 			if(layer.showDialogue()) {
 				layer.progressDialogue();
@@ -96,7 +97,7 @@ public class StartScreen implements Screen {
 			layer.render(batch);
 			if(showNextInstructions) {
 				font.setColor(Color.BLACK);
-				font.draw(batch, "Press Enter to continue", 600, 50);
+				font.draw(batch, "Press Space to continue", 600, 50);
 			}
 		}
 		else {
