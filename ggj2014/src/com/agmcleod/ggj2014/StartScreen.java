@@ -10,6 +10,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class StartScreen implements Screen {
 	
+	private static final Color COLOR_BLUE = new Color(47f / 255f, 72f / 255f, 173f / 255f, 1f);
+	private static final Color COLOR_YELLOW = new Color(255f, 128f / 255f, 0f, 1f);
+	
+	private SpriteBatch batch;
+	private BitmapFont font;
+	private Game game;
+	private Layer layer;
+	private boolean showNextInstructions;
+	
 	public class LoadGameScreenEvent implements DialogueCompleteEvent {
 		public void complete() {
 			game.startGameScreen();
@@ -24,16 +33,9 @@ public class StartScreen implements Screen {
 		}
 	}
 	
-	private static final Color COLOR_BLUE = new Color(47f / 255f, 72f / 255f, 173f / 255f, 1f);
-	private static final Color COLOR_YELLOW = new Color(255f, 128f / 255f, 0f, 1f);
-	
-	private SpriteBatch batch;
-	private BitmapFont font;
-	private Game game;
-	private Layer layer;
-	
 	public StartScreen(Game game) {
 		this.game = game;
+		showNextInstructions = true;
 	}
 	
 	@Override
@@ -61,6 +63,7 @@ public class StartScreen implements Screen {
 			if(layer.showDialogue()) {
 				layer.progressDialogue();
 			}
+			showNextInstructions = false;
 			break;
 		case Input.Keys.ESCAPE:
 			Gdx.app.exit();
@@ -88,6 +91,10 @@ public class StartScreen implements Screen {
 		
 		if(layer.showDialogue()) {
 			layer.render(batch);
+			if(showNextInstructions) {
+				font.setColor(Color.BLACK);
+				font.draw(batch, "Press Enter to continue", 600, 50);
+			}
 		}
 		else {
 			String whiteOne = "Press ";
