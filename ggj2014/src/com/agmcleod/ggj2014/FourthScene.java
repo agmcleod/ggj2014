@@ -179,7 +179,7 @@ public class FourthScene extends Scene {
 		if(bearItemPlaced && paperItemPlaced && ringItemPlaced) {
 			if(!allInPlace) {
 				endStart += delta;
-				if(endStart >= 2f) {
+				if(endStart >= 1f) {
 					allInPlace = true;
 					startNewDialogue();
 				}
