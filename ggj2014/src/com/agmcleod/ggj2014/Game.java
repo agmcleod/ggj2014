@@ -11,9 +11,11 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	
 	public static BitmapFont blueFont;
 	public static BitmapFont blueFontItalic;
+	public static final float END_FADE = 4f;
 	public static BitmapFont font;
 	public static BitmapFont grayFont;
 	public static BitmapFont grayFontItalic;
+	public static BitmapFont greenFont;
 	public static Sound inventory;
 	public static Sound transition;
 	public static BitmapFont whiteFont;
@@ -32,6 +34,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 		yellowFont.dispose();
 		blueFont.dispose();
 		grayFont.dispose();
+		greenFont.dispose();
 		yellowFontItalic.dispose();
 		blueFontItalic.dispose();
 		grayFontItalic.dispose();
@@ -43,6 +46,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 		yellowFont = new BitmapFont(Gdx.files.internal("data/yellowfont.fnt"), Gdx.files.internal("data/yellowfont.png"), false);
 		blueFont = new BitmapFont(Gdx.files.internal("data/bluefont.fnt"), Gdx.files.internal("data/bluefont.png"), false);
 		grayFont = new BitmapFont(Gdx.files.internal("data/grayfont.fnt"), Gdx.files.internal("data/grayfont.png"), false);
+		greenFont = new BitmapFont(Gdx.files.internal("data/greenfont.fnt"), Gdx.files.internal("data/greenfont.png"), false);
 		yellowFontItalic = new BitmapFont(Gdx.files.internal("data/yellowitalicfont.fnt"), Gdx.files.internal("data/yellowitalicfont.png"), false);
 		blueFontItalic = new BitmapFont(Gdx.files.internal("data/blueitalicfont.fnt"), Gdx.files.internal("data/blueitalicfont.png"), false);
 		grayFontItalic = new BitmapFont(Gdx.files.internal("data/grayitalicfont.fnt"), Gdx.files.internal("data/grayitalicfont.png"), false);

@@ -88,6 +88,9 @@ public class Layer {
 		else if(color.equals("yellowitalic")) {
 			chosenFont = Game.yellowFontItalic;
 		}
+		else if(color.equals("green")) {
+			chosenFont = Game.greenFont;
+		}
 		else {
 			chosenFont = Game.font;
 		}
@@ -101,6 +104,9 @@ public class Layer {
 		}
 		if(isMusicPlaying()) {
 			stopMusic();
+		}
+		if(texture != null) {
+			texture.dispose();
 		}
 	}
 	
@@ -179,6 +185,10 @@ public class Layer {
 	
 	public void setAcceptsItem(boolean acceptsItem) {
 		this.acceptsItem = acceptsItem;
+	}
+	
+	public void setMusicFileName(String name) {
+		musicFileName = name;
 	}
 	
 	public void setShowDialogue(boolean showDialogue) {

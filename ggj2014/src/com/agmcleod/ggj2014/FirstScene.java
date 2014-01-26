@@ -97,11 +97,23 @@ public class FirstScene extends Scene {
 		}
 	}
 	
-	public void render(SpriteBatch batch) {
-		super.render(batch);
+	public void render(SpriteBatch batch, float delta) {
+		super.render(batch, delta);
+		BitmapFont font;
+		switch(currentLayer) {
+		case 1:
+			font = Game.grayFont;
+			break;
+		case 2:
+			font = Game.whiteFont;
+			break;
+		default:
+			font = Game.font;
+		}
 		if(showInstructions) {
-			Game.whiteFont.draw(batch, "Try to find an item for one of the characters.", 180, 300);
-			Game.whiteFont.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
+			font.draw(batch, "Try to find an item for one of the characters.", 180, 300);
+			font.draw(batch, "Use the mouse to collect.", 300, 250);
+			font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
 		}
 	}
 	

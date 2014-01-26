@@ -13,12 +13,15 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class FourthScene extends Scene {
 	
+	private boolean allInPlace;
 	private boolean bearItemPlaced;
 	private Texture bearTexture;
+	private Texture blankTexture;
 	private Texture blueImage;
 	private boolean canSwitchLayers;
 	private ObjectMap<Rectangle, String> collisionMap;
 	private Music currentMusic;
+	
 	private GameScreen gameScreen;
 	private Texture greyImage;
 	private Texture inventory;
@@ -28,6 +31,8 @@ public class FourthScene extends Scene {
 	private Vector2 pos;
 	private boolean ringItemPlaced;
 	private Texture ringTexture;
+	private float endStart = 0;
+	private boolean fadeToEnd = false;
 	private Texture yellowImage;
 	
 	private class AllowMovementHandler implements DialogueCompleteEvent {
@@ -51,7 +56,9 @@ public class FourthScene extends Scene {
 		super(1);
 		this.gameScreen = gameScreen;
 		
-		setLayer(0, new Layer("stage4/blank.png", "Title.mp3"));
+		Layer layer = new Layer();
+		layer.setMusicFileName("Title.mp3");
+		setLayer(0, layer);
 		
 		NextLayerOneDialogueEvent nltde = new NextLayerOneDialogueEvent();
 		
@@ -66,6 +73,7 @@ public class FourthScene extends Scene {
 		bearTexture = new Texture(Gdx.files.internal("data/production/items/inventory/bear.png"));
 		paperTexture = new Texture(Gdx.files.internal("data/production/items/inventory/paper.png"));
 		ringTexture = new Texture(Gdx.files.internal("data/production/items/inventory/ring.png"));
+		blankTexture = new Texture(Gdx.files.internal("data/production/stage4/blank.png"));
 		
 		blueImage = new Texture(Gdx.files.internal("data/production/stage4/blue.png"));
 		greyImage = new Texture(Gdx.files.internal("data/production/stage4/grey.png"));
@@ -77,6 +85,7 @@ public class FourthScene extends Scene {
 		collisionMap.put(new Rectangle(442, 226, 166, 217), "bear");
 		collisionMap.put(new Rectangle(699, 177, 105, 155), "paper");
 		musicPlayString = "";
+		allInPlace = false;
 	}
 	
 	public boolean changeLayer(int i) {
@@ -92,6 +101,11 @@ public class FourthScene extends Scene {
 		blueImage.dispose();
 		greyImage.dispose();
 		yellowImage.dispose();
+		blankTexture.dispose();
+	}
+	
+	public float getEndStart() {
+		return endStart;
 	}
 	
 	@Override
@@ -121,7 +135,6 @@ public class FourthScene extends Scene {
 					ringItemPlaced = true;
 					musicPlayString += "yellow";
 				}
-				System.out.println(musicPlayString);
 				setMusic();
 			}
 		}
@@ -131,9 +144,13 @@ public class FourthScene extends Scene {
 		return false;
 	}
 	
-	public void render(SpriteBatch batch) {
-		getLayers()[0].render(batch);
-		batch.draw(inventory, pos.x, pos.y);
+	public void render(SpriteBatch batch, float delta) {
+		batch.draw(blankTexture, 0, 0);
+		if(fadeToEnd) {
+			if(endStart < Game.END_FADE) {
+				endStart += delta;
+			}
+		}
 		if(bearItemPlaced) {
 			batch.draw(blueImage, 0, 0);
 		}
@@ -144,7 +161,10 @@ public class FourthScene extends Scene {
 			batch.draw(yellowImage, 0, 0);
 		}
 		
-		if (!bearItemPlaced){
+		if(!bearItemPlaced || !paperItemPlaced || !ringItemPlaced) {
+			batch.draw(inventory, pos.x, pos.y);
+		}
+		if(!bearItemPlaced){
 			batch.draw(bearTexture, pos.x + 10, pos.y + 10 + (2 * bearTexture.getHeight()));
 		}
 		
@@ -155,6 +175,17 @@ public class FourthScene extends Scene {
 		if(!ringItemPlaced) {
 			batch.draw(ringTexture, pos.x + 10, pos.y + 10 + (0 * ringTexture.getHeight()));
 		}
+		
+		if(bearItemPlaced && paperItemPlaced && ringItemPlaced) {
+			if(!allInPlace) {
+				endStart += delta;
+				if(endStart >= 2f) {
+					allInPlace = true;
+					startNewDialogue();
+				}
+			}
+		}
+		getLayers()[0].render(batch);
 	}
 	
 	public void setMusic() {
@@ -168,5 +199,45 @@ public class FourthScene extends Scene {
 		}
 		currentMusic = Gdx.audio.newMusic(Gdx.files.internal("data/scene4/" + musicPlayString + ".mp3"));
 		currentMusic.play();
+	}
+	
+	public void startNewDialogue() {
+		Layer layer = getLayers()[0];
+		layer.getDialogues().clear();
+		NextLayerOneDialogueEvent nltde = new NextLayerOneDialogueEvent();
+		
+		DialogueCompleteEvent fadeOutEvent = new DialogueCompleteEvent() {
+			@Override
+			public void complete() {
+				setFadeToEnd(true);
+				getLayers()[0].setShowDialogue(false);
+				currentMusic.stop();
+				currentMusic.dispose();
+				currentMusic = Gdx.audio.newMusic(Gdx.files.internal("data/scene4/finale.mp3"));
+				currentMusic.play();
+				endStart = 0;
+			}
+		};
+		
+		layer.addDialogue("This is...", "green", nltde);
+		layer.addDialogue("From so long ago.", "green", nltde);
+		layer.addDialogue("I remember it like it was yesterday. We were all there.", "green", nltde);
+		layer.addDialogue("Is this what we were looking for?", "green", nltde);
+		layer.addDialogue("...", "green", nltde);
+		layer.addDialogue("Yeah. It was.", "green", nltde);
+		layer.addDialogue("I needed to see it just one more time.", "green", nltde);
+		layer.addDialogue("So I could find those feelings again.", "green", nltde);
+		layer.addDialogue("I think I'll keep it this time.", "green", nltde);
+		layer.addDialogue("We should move on though. We shouldn't dwell here any longer than we need to.", "green", nltde);
+		layer.addDialogue("This time I won't forget", "green", fadeOutEvent);
+		layer.setShowDialogue(true);
+	}
+
+	public boolean fadeToEnd() {
+		return fadeToEnd;
+	}
+
+	public void setFadeToEnd(boolean fadeToEnd) {
+		this.fadeToEnd = fadeToEnd;
 	}
 }

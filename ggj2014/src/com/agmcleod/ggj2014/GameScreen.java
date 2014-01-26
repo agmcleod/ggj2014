@@ -121,11 +121,37 @@ public class GameScreen implements Screen {
 		update(delta);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		currentScene.render(batch);
+		currentScene.render(batch, delta);
 		batch.end();
 		
+		FourthScene fourthScene = (FourthScene) scenes.get(3);
+		
+		if(fourthScene.fadeToEnd()) {
+			float percent = (fourthScene.getEndStart() / Game.END_FADE);
+			Gdx.gl.glEnable(GL10.GL_BLEND);
+			
+			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+				
+			shapeRenderer.setProjectionMatrix(camera.combined);
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(new Color(1, 1, 1, percent));
+			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			shapeRenderer.end();
+				
+			Gdx.gl.glDisable(GL10.GL_BLEND);
+			if(percent >= 1f) {
+				batch.begin();
+				Game.font.draw(batch, "Programming: Aaron McLeod", 100, 600);
+				Game.font.draw(batch, "Audio: Jake Butineau", 100, 500);
+				Game.font.draw(batch, "Art: Sarah El Sherbini", 100, 400);
+				Game.font.draw(batch, "Game design, story: Tyler Akey", 100, 300);
+				batch.end();
+			}
+			
+		}
+		
 		// drawing up here so it can be outside the batch start/end
-		if(currentScene.isTransitioning()) {
+		else if(currentScene.isTransitioning()) {
 			float percent = 1f - (transitionTime / TRANSITION_DURATION);
 			Gdx.gl.glEnable(GL10.GL_BLEND);
 			

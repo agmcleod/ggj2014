@@ -86,7 +86,7 @@ public class Scene {
 		getCurrentLayer().progressDialogue();
 	}
 	
-	public void render(SpriteBatch batch) {
+	public void render(SpriteBatch batch, float delta) {
 		getCurrentLayer().render(batch);
 	}
 	

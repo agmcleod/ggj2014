@@ -78,7 +78,7 @@ public class ThirdScene extends Scene {
 		layerTwo.addDialogue("The eye is falling out and half of the stuffing is gone.", "gray", layerTwoEvent);
 		layerTwo.addDialogue("It adds character!", "blue", layerTwoEvent);
 		layerTwo.addDialogue("It's filthy. You should throw it away.", "gray", layerTwoEvent);
-		layerTwo.addDialogue("Just let me have this. We gave you back that silly little piece of paper.", "gray", layerTwoEvent);
+		layerTwo.addDialogue("Just let me have this. We gave you back that silly little piece of paper.", "blue", layerTwoEvent);
 		layerTwo.addDialogue("...Fine", "gray", layerTwoEvent);
 		layerTwo.addDialogue("...we're here.", "yellow", new NextSceneEvent());
 
