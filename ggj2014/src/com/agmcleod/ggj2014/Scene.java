@@ -51,6 +51,10 @@ public class Scene {
 		return layers[i];
 	}
 	
+	public void handleMouseHover(int x, int y) {
+		getCurrentLayer().handleMouseHover(x, y);
+	}
+	
 	public void handleMousePress(int x, int y) {
 		getCurrentLayer().handleMousePress(x, y);
 	}

@@ -72,7 +72,7 @@ public class SecondScene extends Scene {
 		
 		Layer layerTwo = getLayerByIndex(1);
 		layerTwo.addItem("demo.png", 800, 600, new LayerTwoItemHandler());
-		layerTwo.addDialogue("This seems a little out of place...", "blue");
+		layerTwo.addDialogue("This seems a little out of place...", "blueitalic");
 		
 		NextLayerThreeDialogueEvent nltde = new NextLayerThreeDialogueEvent();
 		

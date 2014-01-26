@@ -18,6 +18,7 @@ public class FirstScene extends Scene {
 		public void execute() {
 			Layer layerThree = getLayerByIndex(2);
 			layerThree.getItems().clear();
+			layerThree.setShowDialogue(true);
 			
 			Layer layerOne = getLayerByIndex(0);
 			layerOne.setShowDialogue(true);
@@ -39,10 +40,6 @@ public class FirstScene extends Scene {
 		setLayer(0, new Layer("layerone.png", "scene1/yellow.mp3"));
 		setLayer(1, new Layer("layertwo.png", "scene1/blue.mp3"));
 		setLayer(2, new Layer("layerthree.png", "scene1/gray.mp3"));
-		
-		Layer layerThree = getLayerByIndex(2);
-		LayerThreeItemHandler handler = new LayerThreeItemHandler();
-		layerThree.addItem("demo.png", 300, 300, handler);
 		
 		DialogueCompleteEvent nde = new DialogueCompleteEvent() {
 			@Override
@@ -67,22 +64,27 @@ public class FirstScene extends Scene {
 		layerOne.addDialogue("This isn't what I'm looking for. I'm happy to have found it, but there's something else. We need to keep going", "yellow", nde);
 		layerOne.addDialogue("I don't like this.", "gray", new NextSceneEvent());
 		
+		Layer layerThree = getLayerByIndex(2);
+		LayerThreeItemHandler handler = new LayerThreeItemHandler();
+		layerThree.addItem("demo.png", 300, 300, handler);
+		
+		layerThree.addDialogue("There's something on the ground here... maybe this is... It's a ring. Looks like something out of Wonderland. ...A bit tacky if you ask me.", "grayitalic");
+		
 		showInstructions = true;
 	}
 	
 	public boolean changeLayer(int i) {
-		if(showInstructions) {
-			showInstructions = false;
-		}
-		
+		stopShowingInstructions();
 		return super.changeLayer(i);
 	}
 	
+	public void handleMousePress(int x, int y) {
+		stopShowingInstructions();
+		super.handleMouseHover(x, y);
+	}
+	
 	public boolean nextLayer() {
-		if(showInstructions) {
-			showInstructions = false;
-		}
-		
+		stopShowingInstructions();
 		return super.nextLayer();
 	}
 	
@@ -98,9 +100,14 @@ public class FirstScene extends Scene {
 	public void render(SpriteBatch batch) {
 		super.render(batch);
 		if(showInstructions) {
-			BitmapFont font = getLayers()[0].getFont();
-			font.draw(batch, "Try to find an item for one of the characters.", 180, 300);
-			font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
+			Game.font.draw(batch, "Try to find an item for one of the characters.", 180, 300);
+			Game.font.draw(batch, "Press 1 or 2 or 3 to switch character views.", 190, 200);
+		}
+	}
+	
+	public void stopShowingInstructions() {
+		if(showInstructions) {
+			showInstructions = false;
 		}
 	}
 }

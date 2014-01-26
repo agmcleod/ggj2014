@@ -14,17 +14,13 @@ import com.badlogic.gdx.utils.Array;
 public class Layer {
 	
 	private boolean acceptsItem;
-	private BitmapFont blueFont;
 	private int currentDialogue;
 	private Array<Dialogue> dialogues;
-	private BitmapFont font;
-	private BitmapFont grayFont;
 	private Array<Item> items;
 	private Music music;
 	private String musicFileName;
 	private boolean showDialogue;
 	private Texture texture;
-	private BitmapFont yellowFont;
 	
 	public Layer() {
 		genericInitialize();
@@ -33,7 +29,6 @@ public class Layer {
 	public Layer(String filename) {
 		genericInitialize();
 		texture = new Texture(Gdx.files.internal("data/" + filename));
-		this.musicFileName = musicFileName;
 	}
 	
 	public Layer(String filename, String musicFileName) {
@@ -47,7 +42,7 @@ public class Layer {
 	}
 	
 	public void addDialogue(String text) {
-		dialogues.add(new Dialogue(this, font, text));
+		dialogues.add(new Dialogue(this, Game.font, text));
 	}
 	
 	public void addDialogue(String text, String color) {
@@ -69,26 +64,30 @@ public class Layer {
 	public BitmapFont chosenFont(String color) {
 		BitmapFont chosenFont;
 		if(color.equals("blue")) {
-			chosenFont = blueFont;
+			chosenFont = Game.blueFont;
 		}
 		else if(color.equals("gray")) {
-			chosenFont = grayFont;
+			chosenFont = Game.grayFont;
 		}
 		else if(color.equals("yellow")) {
-			chosenFont = yellowFont;
+			chosenFont = Game.yellowFont;
+		}
+		else if(color.equals("blueitalic")) {
+			chosenFont = Game.blueFontItalic;
+		}
+		else if(color.equals("grayitalic")) {
+			chosenFont = Game.grayFontItalic;
+		}
+		else if(color.equals("yellowitalic")) {
+			chosenFont = Game.yellowFontItalic;
 		}
 		else {
-			chosenFont = font;
+			chosenFont = Game.font;
 		}
 		return chosenFont;
 	}
 	
 	public void dispose() {
-		if(texture != null) texture.dispose();
-		if(font != null) font.dispose();
-		if(blueFont != null) blueFont.dispose();
-		if(yellowFont != null) yellowFont.dispose();
-		if(grayFont != null) grayFont.dispose();
 		Iterator<Dialogue> it = dialogues.iterator();
 		while(it.hasNext()) {
 			it.next().dispose();
@@ -103,10 +102,6 @@ public class Layer {
 		items = new Array<Item>();
 		currentDialogue = 0;
 		showDialogue = false;
-		font = new BitmapFont(Gdx.files.internal("data/layeronefont.fnt"), Gdx.files.internal("data/layeronefont.png"), false);
-		yellowFont = new BitmapFont(Gdx.files.internal("data/yellowfont.fnt"), Gdx.files.internal("data/yellowfont.png"), false);
-		blueFont = new BitmapFont(Gdx.files.internal("data/bluefont.fnt"), Gdx.files.internal("data/bluefont.png"), false);
-		grayFont = new BitmapFont(Gdx.files.internal("data/grayfont.fnt"), Gdx.files.internal("data/grayfont.png"), false);
 	}
 	
 	public Dialogue getCurrentDialogue() {
@@ -117,12 +112,18 @@ public class Layer {
 		return dialogues;
 	}
 	
-	public BitmapFont getFont() {
-		return font;
-	}
-	
 	public Array<Item> getItems() {
 		return items;
+	}
+	
+	public void handleMouseHover(int x, int y) {
+		Iterator<Item> it = items.iterator();
+		while(it.hasNext()) {
+			Item item = it.next();
+			if(item.containsPoint(x, y)) {
+				item.onHover();
+			}
+		}
 	}
 	
 	public void handleMousePress(int x, int y) {

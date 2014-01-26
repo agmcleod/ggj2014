@@ -66,7 +66,7 @@ public class ThirdScene extends Scene {
 
 		Layer layerOne = getLayerByIndex(0);
 		layerOne.addItem("demo.png", 800, 20, new LayerOneItemHandler());
-		layerOne.addDialogue("Wow, I haven't seen this in a long time. I wonder...", "yellow");
+		layerOne.addDialogue("Wow, I haven't seen this in a long time. I wonder...", "yellowitalic");
 
 		Layer layerTwo = getLayerByIndex(1);
 		layerTwo.addDialogue("Hey!", "yellow", layerTwoEvent);

@@ -86,9 +86,13 @@ public class GameScreen implements Screen {
 		}
 	}
 	
+	public void handleMouseHover(int x, int y) {
+		Vector3 pos = unprojectMouse(x, y);
+		currentScene.handleMouseHover((int) pos.x, (int) pos.y);
+	}
+	
 	public void handleMousePress(int x, int y) {
-		Vector3 pos = new Vector3(x, y, 0);
-		camera.unproject(pos);
+		Vector3 pos = unprojectMouse(x, y);
 		currentScene.handleMousePress((int) pos.x, (int) pos.y);
 	}
 
@@ -162,6 +166,12 @@ public class GameScreen implements Screen {
 		scenes.first().getCurrentLayer().startMusic();
 		currentScene = scenes.first();
 		transitionTime = 0;
+	}
+	
+	public Vector3 unprojectMouse(int x, int y) {
+		Vector3 pos = new Vector3(x, y, 0);
+		camera.unproject(pos);
+		return pos;
 	}
 	
 	public void update(float delta) {

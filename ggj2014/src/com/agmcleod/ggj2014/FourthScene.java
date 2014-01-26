@@ -36,7 +36,7 @@ public class FourthScene extends Scene {
 		layerTwo.setShowDialogue(true);
 		layerTwo.addDialogue("This is it?", "blue", nltde);
 		layerTwo.addDialogue("Yeah.", "yellow", nltde);
-		layerTwo.addDialogue("I don't get it. It's like we came here for nothing.", "black", nltde);
+		layerTwo.addDialogue("I don't get it. It's like we came here for nothing.", "gray", nltde);
 		layerTwo.addDialogue("Now or never I suppose.", "blue", new AllowMovementHandler());
 		
 		setCurrentLayer(1);
