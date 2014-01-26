@@ -145,13 +145,13 @@ public class GameScreen implements Screen {
 		batch = new SpriteBatch();
 		
 		scenes = new Array<Scene>();
-		Dialogue.setTextOffsets();
 		scenes.add(new FirstScene(this));
 		scenes.add(new SecondScene(this));
 		scenes.add(new ThirdScene(this));
 		scenes.add(new FourthScene(this));
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
+		scenes.first().getCurrentLayer().startMusic();
 		currentScene = scenes.first();
 		shapeRenderer = new ShapeRenderer();
 		transitionTime = 0;

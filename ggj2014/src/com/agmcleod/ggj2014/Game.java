@@ -18,6 +18,7 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public void create() {
 		Gdx.input.setInputProcessor(this);
 		setScreen(startScreen);
+		Dialogue.setTextOffsets();
 	}
 
 	@Override

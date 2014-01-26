@@ -1,5 +1,6 @@
 package com.agmcleod.ggj2014;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Scene {
@@ -11,7 +12,7 @@ public class Scene {
 	public Scene(int numOflayers) {
 		layers = new Layer[numOflayers];
 		currentLayer = 0;
-		transitioning = true;
+		transitioning = false;
 	}
 	
 	public boolean changeLayer(int i) {
