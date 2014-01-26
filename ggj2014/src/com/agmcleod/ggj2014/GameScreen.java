@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen {
@@ -21,6 +22,7 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	private Scene currentScene;
+	private int currentSceneIndex;
 	private Game game;
 	private Array<Scene> scenes;
 	private ShapeRenderer shapeRenderer;
@@ -72,13 +74,21 @@ public class GameScreen implements Screen {
 	}
 	
 	public void handleMousePress(int x, int y) {
-		currentScene.handleMousePress(x, y);
+		Vector3 pos = new Vector3(x, y, 0);
+		camera.unproject(pos);
+		currentScene.handleMousePress((int) pos.x, (int) pos.y);
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void nextScene() {
+		currentSceneIndex++;
+		currentScene = scenes.get(currentSceneIndex);
+		scenes.get(currentSceneIndex-1).dispose();
 	}
 
 	@Override
@@ -136,7 +146,9 @@ public class GameScreen implements Screen {
 		
 		scenes = new Array<Scene>();
 		Dialogue.setTextOffsets();
-		scenes.add(new FirstScene());
+		scenes.add(new FirstScene(this));
+		scenes.add(new SecondScene(this));
+		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();
 		shapeRenderer = new ShapeRenderer();

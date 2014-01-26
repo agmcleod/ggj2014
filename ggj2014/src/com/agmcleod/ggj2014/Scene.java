@@ -6,11 +6,12 @@ public class Scene {
 	
 	private int currentLayer;
 	private Layer[] layers;
-	private boolean transitioning = false;
+	private boolean transitioning;
 	
 	public Scene(int numOflayers) {
 		layers = new Layer[numOflayers];
 		currentLayer = 0;
+		transitioning = true;
 	}
 	
 	public boolean changeLayer(int i) {

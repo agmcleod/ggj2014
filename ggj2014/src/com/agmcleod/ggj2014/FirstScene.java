@@ -2,7 +2,9 @@ package com.agmcleod.ggj2014;
 
 public class FirstScene extends Scene {
 	
-	class LayerThreeItemHandler implements ItemClickEvent {
+	private GameScreen gameScreen;
+	
+	private class LayerThreeItemHandler implements ItemClickEvent {
 
 		@Override
 		public void execute() {
@@ -14,7 +16,7 @@ public class FirstScene extends Scene {
 		}
 	}
 	
-	public class NextDialogueEvent implements DialogueCompleteEvent {
+	private class NextDialogueEvent implements DialogueCompleteEvent {
 		@Override
 		public void complete() {
 			Layer layer = getLayerByIndex(0);
@@ -22,16 +24,18 @@ public class FirstScene extends Scene {
 		}
 	}
 	
-	public class NextSceneEvent implements DialogueCompleteEvent {
+	private class NextSceneEvent implements DialogueCompleteEvent {
 		@Override
 		public void complete() {
-			
+			gameScreen.nextScene();
 		}
 	}
 	
-	public FirstScene() {
+	public FirstScene(GameScreen gameScreen) {
 		super(3);
-		
+
+		this.gameScreen = gameScreen;
+
 		try {
 			setLayer(0, new Layer("layerone.png", ""));
 			setLayer(1, new Layer("layertwo.png", ""));

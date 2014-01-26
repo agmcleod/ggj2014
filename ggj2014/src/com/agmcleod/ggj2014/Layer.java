@@ -36,6 +36,10 @@ public class Layer {
 		this.musicFileName = musicFileName;
 	}
 	
+	public boolean acceptsItem() {
+		return acceptsItem;
+	}
+	
 	public void addDialogue(String text) {
 		dialogues.add(new Dialogue(this, font, text));
 	}
@@ -135,7 +139,7 @@ public class Layer {
 			getCurrentDialogue().nextPart();
 		}
 	}
-	
+
 	public void render(SpriteBatch batch) {
 		if(texture != null) {
 			batch.draw(texture, 0, 0);
@@ -151,7 +155,11 @@ public class Layer {
 			dialogues.get(currentDialogue).render(batch);
 		}
 	}
-
+	
+	public void setAcceptsItem(boolean acceptsItem) {
+		this.acceptsItem = acceptsItem;
+	}
+	
 	public void setShowDialogue(boolean showDialogue) {
 		this.showDialogue = showDialogue;
 	}
@@ -159,12 +167,12 @@ public class Layer {
 	public boolean showDialogue() {
 		return showDialogue;
 	}
-	
+
 	public void startMusic() {
 		/* music = Gdx.audio.newMusic(Gdx.files.internal("data/" + musicFileName));
 		music.play(); */
 	}
-	
+
 	public void stopMusic() {
 		/* music.stop();
 		music.dispose(); */
@@ -174,13 +182,5 @@ public class Layer {
 		if(showDialogue) {
 			dialogues.get(currentDialogue).update(delta);
 		}
-	}
-
-	public boolean acceptsItem() {
-		return acceptsItem;
-	}
-
-	public void setAcceptsItem(boolean acceptsItem) {
-		this.acceptsItem = acceptsItem;
 	}
 }
