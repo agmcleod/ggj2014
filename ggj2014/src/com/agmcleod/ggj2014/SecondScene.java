@@ -58,9 +58,9 @@ public class SecondScene extends Scene {
 		canSwitchLayers = false;
 		
 		try {
-			setLayer(0, new Layer("layerone.png", ""));
-			setLayer(1, new Layer("layertwo.png", ""));
-			setLayer(2, new Layer("layerthree.png", ""));	
+			setLayer(0, new Layer("layerone.png"));
+			setLayer(1, new Layer("layertwo.png"));
+			setLayer(2, new Layer("layerthree.png"));	
 		}
 		catch(Exception e) {
 			System.err.println("Error: " + e.getMessage());

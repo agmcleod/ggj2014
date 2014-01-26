@@ -149,6 +149,7 @@ public class GameScreen implements Screen {
 		scenes.add(new FirstScene(this));
 		scenes.add(new SecondScene(this));
 		scenes.add(new ThirdScene(this));
+		scenes.add(new FourthScene(this));
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();

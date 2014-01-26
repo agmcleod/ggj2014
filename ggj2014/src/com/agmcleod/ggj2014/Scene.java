@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Scene {
 	
-	private int currentLayer;
+	protected int currentLayer;
 	private Layer[] layers;
 	private boolean transitioning;
 	
