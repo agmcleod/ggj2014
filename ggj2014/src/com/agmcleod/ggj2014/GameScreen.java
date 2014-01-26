@@ -105,7 +105,9 @@ public class GameScreen implements Screen {
 	public void nextScene() {
 		currentSceneIndex++;
 		currentScene = scenes.get(currentSceneIndex);
+		currentScene.getCurrentLayer().startMusic();
 		scenes.get(currentSceneIndex-1).dispose();
+		Game.transition.play();
 	}
 
 	@Override

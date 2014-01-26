@@ -142,6 +142,7 @@ public class Layer {
 			Item item = it.next();
 			if(item.containsPoint(x, y)) {
 				item.onClick();
+				Game.inventory.play();
 			}
 		}
 	}

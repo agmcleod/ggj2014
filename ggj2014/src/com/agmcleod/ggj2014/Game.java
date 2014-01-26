@@ -1,5 +1,6 @@
 package com.agmcleod.ggj2014;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -13,6 +14,8 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public static BitmapFont font;
 	public static BitmapFont grayFont;
 	public static BitmapFont grayFontItalic;
+	public static Sound inventory;
+	public static Sound transition;
 	public static BitmapFont whiteFont;
 	public static BitmapFont yellowFont;
 	public static BitmapFont yellowFontItalic;
@@ -44,6 +47,8 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 		blueFontItalic = new BitmapFont(Gdx.files.internal("data/blueitalicfont.fnt"), Gdx.files.internal("data/blueitalicfont.png"), false);
 		grayFontItalic = new BitmapFont(Gdx.files.internal("data/grayitalicfont.fnt"), Gdx.files.internal("data/grayitalicfont.png"), false);
 		whiteFont = new BitmapFont(Gdx.files.internal("data/whitefont.fnt"), Gdx.files.internal("data/whitefont.png"), false);
+		transition = Gdx.audio.newSound(Gdx.files.internal("data/scene1/transition.mp3"));
+		inventory = Gdx.audio.newSound(Gdx.files.internal("data/scene1/inventory.mp3"));
 	}
 	
 	@Override
@@ -60,6 +65,8 @@ public class Game extends com.badlogic.gdx.Game implements InputProcessor {
 	public void dispose() {
 		gameScreen.dispose();
 		disposeFonts();
+		transition.dispose();
+		inventory.dispose();
 	}
 	
 	@Override
