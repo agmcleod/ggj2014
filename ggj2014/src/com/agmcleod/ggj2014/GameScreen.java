@@ -148,6 +148,7 @@ public class GameScreen implements Screen {
 		Dialogue.setTextOffsets();
 		scenes.add(new FirstScene(this));
 		scenes.add(new SecondScene(this));
+		scenes.add(new ThirdScene(this));
 		currentSceneIndex = 0;
 		scenes.first().setCurrentLayer(startLayer);
 		currentScene = scenes.first();

@@ -2,18 +2,28 @@ package com.agmcleod.ggj2014;
 
 public class SecondScene extends Scene {
 	
+	private boolean canSwitchLayers;
 	private GameScreen gameScreen;
+	
+	
+	private class AllowMovementHandler implements DialogueCompleteEvent {
+		@Override
+		public void complete() {
+			canSwitchLayers = true;
+			Layer layerOne = getLayerByIndex(0);
+			layerOne.setShowDialogue(false);
+		}
+	}
 	
 	private class LayerTwoItemHandler implements ItemClickEvent {
 
 		@Override
 		public void execute() {
-			System.out.println("clicked");
 			Layer layerTwo = getLayerByIndex(1);
 			layerTwo.getItems().clear();
 			layerTwo.setShowDialogue(true);
 			
-			Layer layerThree = getLayerByIndex(1);
+			Layer layerThree = getLayerByIndex(2);
 			layerThree.setShowDialogue(true);
 		}
 	}
@@ -45,6 +55,7 @@ public class SecondScene extends Scene {
 		super(3);
 		
 		this.gameScreen = gameScreen;
+		canSwitchLayers = false;
 		
 		try {
 			setLayer(0, new Layer("layerone.png", ""));
@@ -62,7 +73,7 @@ public class SecondScene extends Scene {
 		layerOne.addDialogue("It feels like it's been hours.", "blue", nde);
 		layerOne.addDialogue("We're not there yet, but we're getting closer. Can't you feel it?", "yellow", nde);
 		layerOne.addDialogue("Not really, you still haven't told us why we're wasting our time like this.", "gray", nde);
-		layerOne.addDialogue("You'll understand when we get there.", "yellow");
+		layerOne.addDialogue("You'll understand when we get there.", "yellow", new AllowMovementHandler());
 		
 		Layer layerTwo = getLayerByIndex(1);
 		layerTwo.addItem("demo.png", 800, 600, new LayerTwoItemHandler());
@@ -84,5 +95,23 @@ public class SecondScene extends Scene {
 		layerThree.addDialogue("**snatches paper**", "black", nltde);
 		layerThree.addDialogue("You didn't see anything.", "black", nltde);
 		layerThree.addDialogue("If you say so. We still have to keep going. Come on.", "yellow", new NextSceneEvent());
+	}
+	
+	public boolean changeLayer(int i) {
+		if(canSwitchLayers) {
+			return super.changeLayer(i);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean nextLayer() {
+		if(canSwitchLayers) {
+			return super.nextLayer();
+		}
+		else {
+			return false;
+		}
 	}
 }
