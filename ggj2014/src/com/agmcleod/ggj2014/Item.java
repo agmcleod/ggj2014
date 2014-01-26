@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Item {
+	private ItemClickEvent itemClickEvent;
 	private Layer layer;
 	private Vector2 pos;
 	private Rectangle rect;
@@ -23,8 +24,18 @@ public class Item {
 		return rect.contains(x, y);
 	}
 	
+	public ItemClickEvent getItemClickEvent() {
+		return itemClickEvent;
+	}
+	
 	public void onClick() {
-		
+		if(itemClickEvent != null) {
+			itemClickEvent.execute();
+		}
+	}
+	
+	public void setItemClickEvent(ItemClickEvent itemClickEvent) {
+		this.itemClickEvent = itemClickEvent;
 	}
 	
 	public void render(SpriteBatch batch) {

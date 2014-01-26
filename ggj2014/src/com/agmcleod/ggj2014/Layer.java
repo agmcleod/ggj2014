@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Layer {
 	
+	private boolean acceptsItem;
 	private BitmapFont blueFont;
 	private int currentDialogue;
 	private Array<Dialogue> dialogues;
@@ -26,22 +27,12 @@ public class Layer {
 	private BitmapFont yellowFont;
 	
 	public Layer() {
-		dialogues = new Array<Dialogue>();
-		currentDialogue = 0;
-		showDialogue = false;
-		font = new BitmapFont(Gdx.files.internal("data/layeronefont.fnt"), Gdx.files.internal("data/layeronefont.png"), false);
-		yellowFont = new BitmapFont(Gdx.files.internal("data/yellowfont.fnt"), Gdx.files.internal("data/yellowfont.png"), false);
-		blueFont = new BitmapFont(Gdx.files.internal("data/bluefont.fnt"), Gdx.files.internal("data/bluefont.png"), false);
-		grayFont = new BitmapFont(Gdx.files.internal("data/grayfont.fnt"), Gdx.files.internal("data/grayfont.png"), false);
+		genericInitialize();
 	}
 	
 	public Layer(String filename, String musicFileName) {
+		genericInitialize();
 		texture = new Texture(Gdx.files.internal("data/" + filename));
-		font = new BitmapFont(Gdx.files.internal("data/layeronefont.fnt"), Gdx.files.internal("data/layeronefont.png"), false);
-		dialogues = new Array<Dialogue>();
-		items = new Array<Item>();
-		showDialogue = false;
-		currentDialogue = 0;
 		this.musicFileName = musicFileName;
 	}
 	
@@ -57,6 +48,12 @@ public class Layer {
 		Dialogue dialogue = new Dialogue(this, chosenFont(color), text);
 		dialogue.setCompleteEvent(completeEvent);
 		dialogues.add(dialogue);
+	}
+	
+	public void addItem(String textureName, int x, int y, ItemClickEvent itemClickEvent) {
+		Item item = new Item(textureName, this, x, y);
+		item.setItemClickEvent(itemClickEvent);
+		items.add(item);
 	}
 	
 	public BitmapFont chosenFont(String color) {
@@ -88,6 +85,17 @@ public class Layer {
 		}
 	}
 	
+	public void genericInitialize() {
+		dialogues = new Array<Dialogue>();
+		items = new Array<Item>();
+		currentDialogue = 0;
+		showDialogue = false;
+		font = new BitmapFont(Gdx.files.internal("data/layeronefont.fnt"), Gdx.files.internal("data/layeronefont.png"), false);
+		yellowFont = new BitmapFont(Gdx.files.internal("data/yellowfont.fnt"), Gdx.files.internal("data/yellowfont.png"), false);
+		blueFont = new BitmapFont(Gdx.files.internal("data/bluefont.fnt"), Gdx.files.internal("data/bluefont.png"), false);
+		grayFont = new BitmapFont(Gdx.files.internal("data/grayfont.fnt"), Gdx.files.internal("data/grayfont.png"), false);
+	}
+	
 	public Dialogue getCurrentDialogue() {
 		return dialogues.get(currentDialogue);
 	}
@@ -98,6 +106,10 @@ public class Layer {
 	
 	public BitmapFont getFont() {
 		return font;
+	}
+	
+	public Array<Item> getItems() {
+		return items;
 	}
 	
 	public void handleMousePress(int x, int y) {
@@ -119,12 +131,20 @@ public class Layer {
 	}
 	
 	public void progressDialogue() {
-		getCurrentDialogue().nextPart();
+		if(currentDialogue < getDialogues().size) {
+			getCurrentDialogue().nextPart();
+		}
 	}
 	
 	public void render(SpriteBatch batch) {
 		if(texture != null) {
 			batch.draw(texture, 0, 0);
+		}
+		
+		Iterator<Item> it = items.iterator();
+		while(it.hasNext()) {
+			Item item = it.next();
+			item.render(batch);
 		}
 
 		if(showDialogue()) {
@@ -154,5 +174,13 @@ public class Layer {
 		if(showDialogue) {
 			dialogues.get(currentDialogue).update(delta);
 		}
+	}
+
+	public boolean acceptsItem() {
+		return acceptsItem;
+	}
+
+	public void setAcceptsItem(boolean acceptsItem) {
+		this.acceptsItem = acceptsItem;
 	}
 }
