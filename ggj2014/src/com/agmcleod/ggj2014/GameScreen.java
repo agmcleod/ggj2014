@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen {
 	
+	private final float SCENE_TRANSITION_DURATION = 1f;
 	private final float TRANSITION_DURATION = 0.5f;
 	
 	private SpriteBatch batch;
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
 	private Array<Scene> scenes;
 	private ShapeRenderer shapeRenderer;
 	private int startLayer;
+	private boolean transitioningScene;
 	
 	private float transitionTime;
 	
@@ -53,6 +55,20 @@ public class GameScreen implements Screen {
 		if(batch != null) {
 			batch.dispose();
 		}
+	}
+	
+	public void drawWhiteTransparentSquare(float percent) {
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+		
+		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Filled);
+		shapeRenderer.setColor(new Color(1, 1, 1, percent));
+		shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shapeRenderer.end();
+		
+		Gdx.gl.glDisable(GL10.GL_BLEND);
 	}
 	
 	public void handleKeyDown(int keycode) {
@@ -108,6 +124,8 @@ public class GameScreen implements Screen {
 		currentScene.getCurrentLayer().startMusic();
 		scenes.get(currentSceneIndex-1).dispose();
 		Game.transition.play();
+		transitionTime = 0f;
+		transitioningScene = true;
 	}
 
 	@Override
@@ -128,17 +146,8 @@ public class GameScreen implements Screen {
 		
 		if(fourthScene.fadeToEnd()) {
 			float percent = (fourthScene.getEndStart() / Game.END_FADE);
-			Gdx.gl.glEnable(GL10.GL_BLEND);
-			
-			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			drawWhiteTransparentSquare(percent);
 				
-			shapeRenderer.setProjectionMatrix(camera.combined);
-			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(new Color(1, 1, 1, percent));
-			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			shapeRenderer.end();
-				
-			Gdx.gl.glDisable(GL10.GL_BLEND);
 			if(percent >= 1f) {
 				batch.begin();
 				Game.font.draw(batch, "Programming: Aaron McLeod", 100, 600);
@@ -151,19 +160,17 @@ public class GameScreen implements Screen {
 		}
 		
 		// drawing up here so it can be outside the batch start/end
-		else if(currentScene.isTransitioning()) {
-			float percent = 1f - (transitionTime / TRANSITION_DURATION);
-			Gdx.gl.glEnable(GL10.GL_BLEND);
+		else if(currentScene.isTransitioning() || transitioningScene) {
+			float duration;
+			if(transitioningScene) {
+				duration = SCENE_TRANSITION_DURATION;
+			}
+			else {
+				duration = TRANSITION_DURATION;
+			}
+			float percent = 1f - (transitionTime / duration);
 			
-			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-			
-			shapeRenderer.setProjectionMatrix(camera.combined);
-			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(new Color(1, 1, 1, percent));
-			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			shapeRenderer.end();
-			
-			Gdx.gl.glDisable(GL10.GL_BLEND);
+			drawWhiteTransparentSquare(percent);
 		}
 	}
 
@@ -209,6 +216,13 @@ public class GameScreen implements Screen {
 			if(transitionTime > TRANSITION_DURATION) {
 				transitionTime = 0f;
 				currentScene.setTransitioning(false);
+			}
+		}
+		else if(transitioningScene) {
+			transitionTime += delta;
+			if(transitionTime > SCENE_TRANSITION_DURATION) {
+				transitionTime = 0f;
+				transitioningScene = false;
 			}
 		}
 	}
